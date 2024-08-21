@@ -39,6 +39,7 @@ const Game = (function() {
     };
 
     const Score = (function() {
+        // Initialize and declare scores
         player = 0;
         computer = 0;
 
