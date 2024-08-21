@@ -1,11 +1,18 @@
 const Game = (function() {
+    // The 3x3 grid used for Tic Tac Toe
     const GameBoard = function() {
         return [ new Array(3), new Array(3), new Array(3) ];
     };
+
+    // Declare max score
     let maxScore = 3;
+
+    // Sets Max Score
     const setMaxScore = function(score) {
         maxScore = score;
     };
+
+    // Plays the game
     const playGame = function() {
         const gameBoard = GameBoard();
     };
