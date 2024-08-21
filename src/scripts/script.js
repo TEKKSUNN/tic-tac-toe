@@ -58,14 +58,6 @@ const Game = (function() {
         return { write };
     };
 
-    // Declare max score
-    let maxScore = 3;
-
-    // Sets Max Score
-    const setMaxScore = function(score) {
-        maxScore = score;
-    };
-
     // Lets player decide what symbol or side they will play as
     const assignSymbols = function() {
         let playerSymbol = null;
@@ -82,6 +74,14 @@ const Game = (function() {
 
     // Handles all score-related stuff
     const Score = (function() {
+        // Declare max score
+        let maxScore = 3;
+
+        // Sets Max Score
+        const setMaxScore = function(score) {
+            maxScore = score;
+        };
+        
         // Initialize and declare scores
         let player = 0;
         let computer = 0;
