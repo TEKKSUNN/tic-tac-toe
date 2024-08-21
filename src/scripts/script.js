@@ -41,6 +41,18 @@ const Game = (function() {
     const Score = (function() {
         player = 0;
         computer = 0;
+
+        // Sets score of player
+        const setPlayerScore = function(score) {
+            player = score;
+        };
+
+        // Sets score of computer
+        const setCompScore = function(score) {
+            computer = score;
+        };
+
+        return { setPlayerScore, setCompScore };
     })();
 
     return { playGame };
