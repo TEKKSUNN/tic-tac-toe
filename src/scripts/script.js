@@ -41,8 +41,8 @@ const Game = (function() {
     // Handles all score-related shit
     const Score = (function() {
         // Initialize and declare scores
-        player = 0;
-        computer = 0;
+        let player = 0;
+        let computer = 0;
 
         // Sets score of player
         const setPlayerScore = function(score) {
