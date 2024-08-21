@@ -1,4 +1,9 @@
 const Game = (function() {
+    // Plays the game
+    const playGame = function() {
+        const gameBoard = GameBoard();
+    };
+    
     // The 3x3 grid used for Tic Tac Toe
     const GameBoard = function() {
         return [ new Array(3), new Array(3), new Array(3) ];
@@ -10,11 +15,6 @@ const Game = (function() {
     // Sets Max Score
     const setMaxScore = function(score) {
         maxScore = score;
-    };
-
-    // Plays the game
-    const playGame = function() {
-        const gameBoard = GameBoard();
     };
 
     // Lets player decide what symbol or side they will play as
