@@ -38,7 +38,7 @@ const Game = (function() {
         }
     };
 
-    // Handles all score-related shit
+    // Handles all score-related stuff
     const Score = (function() {
         // Initialize and declare scores
         let player = 0;
