@@ -16,6 +16,45 @@ const Game = (function() {
             }
         };
 
+        // Checks board, returns winner, and returns who won (if there is)
+        const check = function(playerSymbol, computerSymbol) {
+            const getInfo = function() {
+                let player = [];
+                let computer = [];
+
+                // Update contents of player and computer
+                this.board.map(checkContents);
+
+                // Iterates through the rows of a Tic Tac Toe's grid row list
+                // Updates local player and computer array if there is symbol
+                const checkContents = function(row, rowNumber) {
+                    let playerRow = [];
+                    let computerRow = [];
+                    row.map((symbol, index) => {
+                        if (symbol !== undefined) {
+                            const symbolInfo = { symbol, index, rowNumber };
+                            if (symbol === playerSymbol) {
+                                playerRow.push(symbolInfo);
+                            }
+                            else if (symbol === computerSymbol) {
+                                computerRow.push(symbolInfo);
+                            }
+                        }
+                    });
+
+                    // Check if there is something to give, if none, don't proceed
+                    if (playerRow.length !== 0) {
+                        player.push(playerRow);
+                    }
+                    if (computerRow.length !== 0) {
+                        computer.push(computerRow);
+                    }
+                };
+
+                return { player, computer };
+            };
+        };
+
         return { write };
     };
 
