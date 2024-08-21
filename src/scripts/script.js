@@ -6,7 +6,17 @@ const Game = (function() {
 
     // The 3x3 grid used for Tic Tac Toe
     const GameBoard = function() {
-        return [ new Array(3), new Array(3), new Array(3) ];
+        // The Tic Tac Toe board
+        const board = [ new Array(3), new Array(3), new Array(3) ];
+
+        // Lets player write on the board
+        const write = function(row, column, symbol) {
+            if (board[row][column] === undefined) {
+                board[row][column] = symbol;
+            }
+        };
+
+        return { write };
     };
 
     // Declare max score
@@ -29,13 +39,6 @@ const Game = (function() {
             computerSymbol = "O";
         }
         return { player: playerSymbol, computer: computerSymbol };
-    };
-
-    // Lets player write on the board
-    const boardWrite = function(gameBoard, row, column, symbol) {
-        if (gameBoard[row][column] === undefined) {
-            gameBoard[row][column] = symbol;
-        }
     };
 
     // Handles all score-related stuff
