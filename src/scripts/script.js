@@ -3,7 +3,7 @@ const Game = (function() {
     const playGame = function() {
         const gameBoard = GameBoard();
     };
-    
+
     // The 3x3 grid used for Tic Tac Toe
     const GameBoard = function() {
         return [ new Array(3), new Array(3), new Array(3) ];
@@ -29,6 +29,13 @@ const Game = (function() {
             computerSymbol = "O";
         }
         return { player: playerSymbol, computer: computerSymbol };
+    };
+
+    // Lets player write on the board
+    const boardWrite = function(gameBoard, row, column, symbol) {
+        if (gameBoard[row][column] === undefined) {
+            gameBoard[row][column] = symbol;
+        }
     };
 
     return { playGame };
