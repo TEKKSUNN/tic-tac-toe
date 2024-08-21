@@ -52,6 +52,16 @@ const Game = (function() {
             computer = score;
         };
 
+        // Increments score of player
+        const addPlayerScore = function(score) {
+            player += score;
+        }
+
+        // Increments score of computer
+        const addCompScore = function(score) {
+            computer += score;
+        }
+
         return { setPlayerScore, setCompScore };
     })();
 
