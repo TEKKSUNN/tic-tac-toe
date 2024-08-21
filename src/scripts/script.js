@@ -71,7 +71,7 @@ const Game = (function() {
             computer -= score;
         };
 
-        return { setPlayerScore, setCompScore };
+        return { setPlayerScore, setCompScore, addPlayerScore, addCompScore, subPlayerScore, subCompScore };
     })();
 
     return { playGame };
