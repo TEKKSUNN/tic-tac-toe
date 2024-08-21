@@ -38,5 +38,10 @@ const Game = (function() {
         }
     };
 
+    const Score = (function() {
+        player = 0;
+        computer = 0;
+    })();
+
     return { playGame };
 })();
