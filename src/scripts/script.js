@@ -55,12 +55,12 @@ const Game = (function() {
         // Increments score of player
         const addPlayerScore = function(score) {
             player += score;
-        }
+        };
 
         // Increments score of computer
         const addCompScore = function(score) {
             computer += score;
-        }
+        };
 
         // Decrements score of player
         const subPlayerScore = function(score) {
