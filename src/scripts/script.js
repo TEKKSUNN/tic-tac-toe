@@ -62,6 +62,15 @@ const Game = (function() {
             computer += score;
         }
 
+        // Decrements score of player
+        const subPlayerScore = function(score) {
+            player -= score;
+        };
+
+        const subCompScore = function(score) {
+            computer -= score;
+        };
+
         return { setPlayerScore, setCompScore };
     })();
 
