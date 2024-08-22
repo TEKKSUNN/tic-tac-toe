@@ -18,7 +18,7 @@ const Game = (function() {
 
         // Checks board, returns winner, and returns who won (if there is)
         const check = function(playerSymbol, computerSymbol) {
-            const getInfo = function() {
+            const getInfo = (function() {
                 let player = [];
                 let computer = [];
 
@@ -61,7 +61,7 @@ const Game = (function() {
                 };
 
                 return { player, computer };
-            };
+            })();
         };
 
         return { write };
