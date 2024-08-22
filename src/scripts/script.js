@@ -34,12 +34,20 @@ const Game = (function() {
                 const checkContents = function(row, rowNumber) {
                     let playerRow = [];
                     let computerRow = [];
+                    
+                    // Adds symbols to the new player and computer row
                     row.map((symbol, index) => {
+                        // Check if symbol exists
                         if (symbol !== undefined) {
+                            // Make object that records the symbols's information
                             const symbolInfo = { symbol, index, rowNumber };
+
+                            // If player's symbol, add to player
                             if (symbol === playerSymbol) {
                                 playerRow.push(symbolInfo);
                             }
+
+                            // Else, if computer's symbol, add to computer
                             else if (symbol === computerSymbol) {
                                 computerRow.push(symbolInfo);
                             }
