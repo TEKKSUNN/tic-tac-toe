@@ -18,6 +18,7 @@ const Game = (function() {
 
         // Checks board, returns winner, and returns who won (if there is)
         const check = function(playerSymbol, computerSymbol) {
+            // Make winner object
             let winner = { name: null, isWinner: false };
 
             // Gathers information about the grid, and returns new grids without empty rows
