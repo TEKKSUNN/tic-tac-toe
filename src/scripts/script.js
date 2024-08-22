@@ -74,6 +74,8 @@ const Game = (function() {
 
                 return { player, computer };
             })();
+
+            return { winner };
         };
 
         return { write };
