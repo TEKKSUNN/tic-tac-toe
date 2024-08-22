@@ -20,6 +20,7 @@ const Game = (function() {
         const check = function(playerSymbol, computerSymbol) {
             let winner = { name: null, isWinner: false };
 
+            // Gathers information about the grid, and returns new grids without empty rows
             const getInfo = (function() {
                 let player = [];
                 let computer = [];
