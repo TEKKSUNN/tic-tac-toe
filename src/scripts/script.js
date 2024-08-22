@@ -343,7 +343,7 @@ const Game = (function() {
             return computer;
         }
 
-        return { setPlayerScore, setCompScore, addPlayerScore, addCompScore, subPlayerScore, subCompScore, setMaxScore };
+        return { setPlayerScore, setCompScore, addPlayerScore, addCompScore, subPlayerScore, subCompScore, setMaxScore, getPlayerScore, getComputerScore };
     })();
 
     return { playGame };
