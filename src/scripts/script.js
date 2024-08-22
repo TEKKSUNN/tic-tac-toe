@@ -333,6 +333,16 @@ const Game = (function() {
             computer -= score;
         };
 
+        // Shows score of player
+        const getPlayerScore = function() {
+            return player;
+        }
+
+        // Shows score of computer
+        const getComputerScore = function() {
+            return computer;
+        }
+
         return { setPlayerScore, setCompScore, addPlayerScore, addCompScore, subPlayerScore, subCompScore, setMaxScore };
     })();
 
