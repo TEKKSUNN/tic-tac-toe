@@ -84,6 +84,86 @@ const Game = (function() {
                 return { winner };
             }
 
+            // Check if there is winner vertically, returns true when there is winner, false if not
+            const checkVertical = (function() {
+                // Get grids from getInfo method
+                const playerGrid = this.getInfo.player;
+                const computerGrid = this.getInfo.computer;
+
+                // Determine winning amount of symbols in a vertical
+                const winningLine = 3;
+
+                // Proceed if player's rows are 3 then check player's vertical grid
+                if (playerGrid.length === winningLine) {
+
+                    // For every column inside a grid's row
+                    for (let column = 0; column < winningLine; column++) {
+                        // Determine vertical "row" of player grid
+                        let verticalRow = [];
+
+                        // For every row inside a grid
+                        for (let row = 0; row < winningLine; row++) {
+                            // Check if the current symbol exists
+                            let currentSymbol;
+                            try {
+                                currentSymbol = playerGrid[row][column];
+                            } catch (IndexError) {
+                                // Get out of "row" for loop and continue with "column" for loop
+                                break;
+                            }
+
+                            // Push current symbol inside player's vertical "row"
+                            verticalRow.push(currentSymbol);
+                        }
+
+                        // If there is a vertical "row" with three symbols in it
+                        if (verticalRow.length === 3) {
+                            this.winner.name = "Player";
+                            this.winner.isWinner = true;
+                            return true;
+                        }
+                    }
+                }
+
+                else if (computerGrid.length === winningLine) {
+
+                    // For every column inside a grid's row
+                    for (let column = 0; column < winningLine; column++) {
+                        // Determine vertical "row" of player grid
+                        let verticalRow = [];
+
+                        // For every row inside a grid
+                        for (let row = 0; row < winningLine; row++) {
+                            // Check if the current symbol exists
+                            let currentSymbol;
+                            try {
+                                currentSymbol = computerGrid[row][column];
+                            } catch (IndexError) {
+                                // Get out of "row" for loop and continue with "column" for loop
+                                break;
+                            }
+
+                            // Push current symbol inside player's vertical "row"
+                            verticalRow.push(currentSymbol);
+                        }
+
+                        // If there is a vertical "row" with three symbols in it
+                        if (verticalRow.length === 3) {
+                            this.winner.name = "Computer";
+                            this.winner.isWinner = true;
+                            return true;
+                        }
+                    }
+                }
+
+                return false;
+            }.bind(this))();
+
+            // If vertically checking the board, we found a winner
+            if (checkVertical === true) {
+                return { winner };
+            }
+
             return { winner };
         };
 
