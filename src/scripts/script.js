@@ -84,8 +84,8 @@ const Game = (function() {
                 return { winner };
             }
 
-            // Check if there is winner vertically, returns true when there is winner, false if not
-            const checkVertical = (function() {
+            // Check if there is winner vertically & diagonally, returns true when there is winner, false if not
+            const checkVertDiag = (function() {
                 // Get grids from getInfo method
                 const playerGrid = this.getInfo.player;
                 const computerGrid = this.getInfo.computer;
@@ -96,6 +96,7 @@ const Game = (function() {
                 // Proceed if player's rows are 3 then check player's vertical grid
                 if (playerGrid.length === winningLine) {
 
+                    // Check vertical
                     // For every column inside a grid's row
                     for (let column = 0; column < winningLine; column++) {
                         // Determine vertical "row" of player grid
@@ -123,10 +124,63 @@ const Game = (function() {
                             return true;
                         }
                     }
+                    
+                    // Check diagonals
+                    let diagonalRow = [];
+
+                    // Check from top-left to bottom-right
+                    // For this one, the count acts as a row and a column since they both need to be the same value
+                    for (let count = 0; count < winningLine; count++) {
+                        // Check if the current symbol exists
+                        let currentSymbol;
+                        try {
+                            currentSymbol = playerGrid[count][count];
+                        } catch (IndexError) {
+                            // Get out of loop and continue with next diagonal check
+                            break;
+                        }
+
+                        // Push current symbol inside player's diagonal "row"
+                        diagonalRow.push(currentSymbol);
+                    }
+
+                    // If there is a diagonal "row" with three symbols in it
+                    if (diagonalRow.length === winningLine) {
+                        this.winner.name = "Player";
+                        this.winner.isWinner = true;
+                        return true;
+                    }
+                    else {
+                        // Reset symbol list for next diagonal check
+                        diagonalRow = [];
+                    }
+
+                    // Check from bottom-left to top-right
+                    for (let count = winningLine - 1; count >= 0 ; count--) {
+                        // Check if the current symbol exists
+                        let currentSymbol;
+                        try {
+                            currentSymbol = playerGrid[count][count];
+                        } catch (IndexError) {
+                            // Get out of loop
+                            break;
+                        }
+
+                        // Push current symbol inside player's diagonal "row"
+                        diagonalRow.push(currentSymbol);
+                    }
+
+                    // If there is a diagonal "row" with three symbols in it
+                    if (diagonalRow.length === winningLine) {
+                        this.winner.name = "Player";
+                        this.winner.isWinner = true;
+                        return true;
+                    }
                 }
 
                 else if (computerGrid.length === winningLine) {
 
+                    // Check vertical
                     // For every column inside a grid's row
                     for (let column = 0; column < winningLine; column++) {
                         // Determine vertical "row" of player grid
@@ -153,6 +207,58 @@ const Game = (function() {
                             this.winner.isWinner = true;
                             return true;
                         }
+                    }
+                    
+                    // Check diagonals
+                    let diagonalRow = [];
+
+                    // Check from top-left to bottom-right
+                    // For this one, the count acts as a row and a column since they both need to be the same value
+                    for (let count = 0; count < winningLine; count++) {
+                        // Check if the current symbol exists
+                        let currentSymbol;
+                        try {
+                            currentSymbol = computerGrid[count][count];
+                        } catch (IndexError) {
+                            // Get out of loop and continue with next diagonal check
+                            break;
+                        }
+
+                        // Push current symbol inside player's diagonal "row"
+                        diagonalRow.push(currentSymbol);
+                    }
+
+                    // If there is a diagonal "row" with three symbols in it
+                    if (diagonalRow.length === winningLine) {
+                        this.winner.name = "Computer";
+                        this.winner.isWinner = true;
+                        return true;
+                    }
+                    else {
+                        // Reset symbol list for next diagonal check
+                        diagonalRow = [];
+                    }
+
+                    // Check from bottom-left to top-right
+                    for (let count = winningLine - 1; count >= 0 ; count--) {
+                        // Check if the current symbol exists
+                        let currentSymbol;
+                        try {
+                            currentSymbol = computerGrid[count][count];
+                        } catch (IndexError) {
+                            // Get out of loop
+                            break;
+                        }
+
+                        // Push current symbol inside player's diagonal "row"
+                        diagonalRow.push(currentSymbol);
+                    }
+
+                    // If there is a diagonal "row" with three symbols in it
+                    if (diagonalRow.length === winningLine) {
+                        this.winner.name = "Computer";
+                        this.winner.isWinner = true;
+                        return true;
                     }
                 }
 
