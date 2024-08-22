@@ -57,9 +57,13 @@ const Game = (function() {
                     // Check if either side wins horizontally
                     const winningLine = 3;
                     if (playerRow.length >= winningLine) {
+                        this.winner.name = "Player";
+                        this.winner.isWinner = true;
                         return;
                     }
                     if (computerRow.length >= winningLine) {
+                        this.winner.name = "Computer";
+                        this.winner.isWinner = true;
                         return;
                     }
 
@@ -73,7 +77,7 @@ const Game = (function() {
                 };
 
                 return { player, computer };
-            })();
+            }.bind(this))();
 
             return { winner };
         };
