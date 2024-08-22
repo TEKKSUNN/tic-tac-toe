@@ -333,7 +333,7 @@ const Game = (function() {
             computer -= score;
         };
 
-        return { setPlayerScore, setCompScore, addPlayerScore, addCompScore, subPlayerScore, subCompScore };
+        return { setPlayerScore, setCompScore, addPlayerScore, addCompScore, subPlayerScore, subCompScore, setMaxScore };
     })();
 
     return { playGame };
