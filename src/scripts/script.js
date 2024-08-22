@@ -79,6 +79,11 @@ const Game = (function() {
                 return { player, computer };
             }.bind(this))();
 
+            // Check if there is a winner going through getInfo function
+            if (getInfo !== undefined) {
+                return { winner };
+            }
+
             return { winner };
         };
 
