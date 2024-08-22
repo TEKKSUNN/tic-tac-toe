@@ -42,6 +42,15 @@ const Game = (function() {
                         }
                     });
 
+                    // Check if either side wins horizontally
+                    const winningLine = 3;
+                    if (playerRow.length >= winningLine) {
+                        return;
+                    }
+                    if (computerRow.length >= winningLine) {
+                        return;
+                    }
+
                     // Check if there is something to give, if none, don't proceed
                     if (playerRow.length !== 0) {
                         player.push(playerRow);
