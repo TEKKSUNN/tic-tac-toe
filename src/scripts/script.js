@@ -389,7 +389,23 @@ const Game = (function() {
             return maxScore;
         }
 
-        return { resetPlayerScore, resetCompScore, addPlayerScore, addCompScore, subPlayerScore, subCompScore, setMaxScore, getPlayerScore, getComputerScore, getMaxScore };
+        // Finds out who has max score
+        const findWinner = function() {
+            // If player reached max score
+            if (player === maxScore) {
+                return "Player";
+            }
+
+            // If computer reached max score
+            else if (computer === maxScore) {
+                return "Computer";
+            }
+
+            // If no-one reached max score, return undefined
+            return;
+        }
+
+        return { resetPlayerScore, resetCompScore, addPlayerScore, addCompScore, subPlayerScore, subCompScore, setMaxScore, getPlayerScore, getComputerScore, getMaxScore, findWinner };
     })();
 
     return { playGame };
