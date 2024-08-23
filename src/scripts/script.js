@@ -389,7 +389,7 @@ const Game = (function() {
             return maxScore;
         }
 
-        return { setPlayerScore, setCompScore, addPlayerScore, addCompScore, subPlayerScore, subCompScore, setMaxScore, getPlayerScore, getComputerScore, getMaxScore };
+        return { resetPlayerScore, resetCompScore, addPlayerScore, addCompScore, subPlayerScore, subCompScore, setMaxScore, getPlayerScore, getComputerScore, getMaxScore };
     })();
 
     return { playGame };
