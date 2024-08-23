@@ -26,7 +26,7 @@ const Game = (function() {
             
             // Play/continue board game while there is no game winner
             while (gameWinner.getIsWinner() === false) {
-                gameBoard.playerWrite(playerSymbol);
+                gameBoard.askWrite(playerSymbol);
                 gameBoard.showBoard();
 
                 // Determine winner of game again by checking board
@@ -44,7 +44,7 @@ const Game = (function() {
         const board = [ new Array(3), new Array(3), new Array(3) ];
 
         // Asks player where to write on board
-        const playerWrite = function(playerSymbol) {
+        const askWrite = function(playerSymbol) {
             window.alert("Your turn! Write on board.")
             let row;
             let column;
@@ -388,7 +388,7 @@ const Game = (function() {
             board = [ new Array(3), new Array(3), new Array(3) ];
         }
 
-        return { write, showBoard, check, playerWrite };
+        return { write, showBoard, check, askWrite };
     };
 
     // Lets player decide what symbol or side they will play as
