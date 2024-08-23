@@ -15,6 +15,9 @@ const Game = (function() {
         // Determine symbols
         const playerSymbol = symbols.player;
         const computerSymbol = symbols.computer;
+
+        // Variable for checking winner
+        let checkWinner = gameBoard.check(playerSymbol, computerSymbol).winner;
     };
 
     // The 3x3 grid used for Tic Tac Toe
