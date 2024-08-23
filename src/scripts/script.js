@@ -314,7 +314,7 @@ const Game = (function() {
             board = [ new Array(3), new Array(3), new Array(3) ];
         }
 
-        return { write, showBoard };
+        return { write, showBoard, check };
     };
 
     // Lets player decide what symbol or side they will play as
