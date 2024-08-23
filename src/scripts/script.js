@@ -26,6 +26,8 @@ const Game = (function() {
             
             // Play/continue board game while there is no game winner
             while (gameWinner.getIsWinner === false) {
+                gameBoard.playerWrite();
+
                 // Determine winner of game again by checking board
                 gameWinner = gameBoard.check(playerSymbol, computerSymbol);
             }
@@ -39,6 +41,23 @@ const Game = (function() {
     const GameBoard = function() {
         // The Tic Tac Toe board
         const board = [ new Array(3), new Array(3), new Array(3) ];
+
+        // Asks player where to write on board
+        const playerWrite = function(playerSymbol) {
+            window.alert("Your turn! Write on board.")
+            let row;
+            let column;
+            while (row === undefined || column === undefined) {
+                row = parseInt(window.prompt("Row:"));
+                column = parseInt(window.prompt("Column:"));
+                try {
+                    board[row][column] = playerSymbol;
+                } catch (IndexError) {
+                    window.alert("Out of range.");
+                    continue;
+                }
+            }
+        }
 
         // Lets player write on the board
         const write = function(row, column, symbol) {
@@ -337,7 +356,7 @@ const Game = (function() {
             board = [ new Array(3), new Array(3), new Array(3) ];
         }
 
-        return { write, showBoard, check };
+        return { write, showBoard, check, playerWrite };
     };
 
     // Lets player decide what symbol or side they will play as
