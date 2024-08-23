@@ -130,10 +130,10 @@ const Game = (function() {
                     }
 
                     // Check if there is something to give, if none, don't proceed
-                    if (playerRow.length !== 0) {
+                    if (removeUndefined(playerRow).length !== 0) {
                         player.push(playerRow);
                     }
-                    if (computerRow.length !== 0) {
+                    if (removeUndefined(computerRow).length !== 0) {
                         computer.push(computerRow);
                     }
                 };
