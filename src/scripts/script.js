@@ -8,6 +8,9 @@ const Game = (function() {
         let playerScore = Score.getPlayerScore();
         let computerScore = Score.getComputerScore();
         const MAX_SCORE = Score.getMaxScore();
+
+        // Asks user for symbol, and assigns symbol accordingly
+        const symbols = assignSymbols();
     };
 
     // The 3x3 grid used for Tic Tac Toe
