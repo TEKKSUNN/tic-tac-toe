@@ -58,7 +58,7 @@ const Game = (function() {
                     continue;
                 }
             }
-        }
+        };
 
         // Lets player write on the board
         const write = function(row, column, symbol) {
