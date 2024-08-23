@@ -49,9 +49,6 @@ const Game = (function() {
                 let player = [];
                 let computer = [];
 
-                // Update contents of player and computer
-                board.map(checkContents);
-
                 // Iterates through the rows of a Tic Tac Toe's grid row list
                 // Updates local player and computer array if there is symbol
                 const checkContents = function(row, rowNumber) {
@@ -76,6 +73,9 @@ const Game = (function() {
                             }
                         }
                     });
+                    
+                    // Update contents of player and computer
+                    board.map(checkContents);
 
                     // Check if either side wins horizontally
                     const winningLine = 3;
