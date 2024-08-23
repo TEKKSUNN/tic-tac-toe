@@ -28,6 +28,8 @@ const Game = (function() {
             while (gameWinner.getIsWinner() === false) {
                 gameBoard.askWrite(playerSymbol);
                 gameBoard.showBoard();
+                gameBoard.randomWrite(computerSymbol);
+                gameBoard.showBoard();
 
                 // Determine winner of game again by checking board
                 gameWinner = gameBoard.check(playerSymbol, computerSymbol);
@@ -61,6 +63,23 @@ const Game = (function() {
                 }
             }
         };
+
+        // Gives random number
+        const randomNumber = function(min, max) {
+            return Math.floor(Math.random() * (max - min) + min);
+        }
+
+        // Randomly writes on a board
+        const randomWrite = function(computerSymbol) {
+            while (true) {
+                const row = randomNumber(0, 2);
+                const column = randomNumber(0, 2);
+                if (board[row][column] === undefined) {
+                    board[row][column] = computerSymbol;
+                    break;
+                }
+            }
+        }
 
         // Lets player write on the board
         const write = function(row, column, symbol) {
@@ -388,7 +407,7 @@ const Game = (function() {
             board = [ new Array(3), new Array(3), new Array(3) ];
         }
 
-        return { write, showBoard, check, askWrite };
+        return { write, showBoard, check, askWrite, randomWrite };
     };
 
     // Lets player decide what symbol or side they will play as
