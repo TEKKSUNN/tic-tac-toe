@@ -108,9 +108,6 @@ const Game = (function() {
                             }
                         }
                     });
-                    
-                    // Update contents of player and computer
-                    board.map(checkContents);
 
                     // Check if either side wins horizontally
                     const winningLine = 3;
@@ -131,6 +128,9 @@ const Game = (function() {
                         computer.push(computerRow);
                     }
                 };
+
+                // Update contents of player and computer
+                board.map(checkContents);
 
                 return { player, computer };
             })(board);
