@@ -98,12 +98,12 @@ const Game = (function() {
                         if (symbol !== undefined) {
                             // If player's symbol, add to player
                             if (symbol === playerSymbol) {
-                                playerRow[rowNumber][index] = symbol;
+                                playerRow[index] = symbol;
                             }
 
                             // Else, if computer's symbol, add to computer
                             else if (symbol === computerSymbol) {
-                                computerRow[rowNumber][index] = symbol;
+                                computerRow[index] = symbol;
                             }
                         }
                     });
