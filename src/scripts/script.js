@@ -65,15 +65,15 @@ const Game = (function() {
         };
 
         // Gives random number
-        const randomNumber = function(min, max) {
-            return Math.floor(Math.random() * (max - min) + min);
+        const randomGridNumber = function() {
+            return Math.floor(Math.random() * 3);
         }
 
         // Randomly writes on a board
         const randomWrite = function(computerSymbol) {
             while (true) {
-                const row = randomNumber(0, 2);
-                const column = randomNumber(0, 2);
+                const row = randomGridNumber();
+                const column = randomGridNumber();
                 if (board[row][column] === undefined) {
                     board[row][column] = computerSymbol;
                     break;
