@@ -274,7 +274,28 @@ const Game = (function() {
             return { winner };
         };
 
-        return { write };
+        // Shows board visually in console
+        const showBoard = function() {
+            // Determine maxIndex and grid array for storing strings
+            const maxIndex = board.length - 1;
+            let grid = [];
+
+            // In each row of the board, add values to grid array
+            board.map((row, index) => {
+                // Push symbol values separated by "|"
+                grid.push(`${row[0] === undefined ? " " : row[0]}|${row[1] === undefined ? " " : row[1]}|${row[2] === undefined ? " " : row[2]}`);
+                
+                // If the row isn't the last row, add a bottom separator
+                if (index !== maxIndex) {
+                    grid.push("-+-+-");
+                }
+            });
+
+            // Turn grid to a string separated by newlines & log to console
+            console.log(grid.join("\n"));
+        };
+
+        return { write, showBoard };
     };
 
     // Lets player decide what symbol or side they will play as
