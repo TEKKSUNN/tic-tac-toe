@@ -4,11 +4,6 @@ const Game = (function() {
         // Declare 3x3 object for Tic Tac Toe
         const gameBoard = GameBoard();
 
-        // Determine scores
-        let playerScore = Score.getPlayerScore();
-        let computerScore = Score.getComputerScore();
-        const MAX_SCORE = Score.getMaxScore();
-
         // Asks user for symbol, and assigns symbol accordingly
         const symbols = assignSymbols();
 
@@ -112,13 +107,6 @@ const Game = (function() {
             }
         }
 
-        // Lets player write on the board
-        const write = function(row, column, symbol) {
-            if (board[row][column] === undefined) {
-                board[row][column] = symbol;
-            }
-        };
-
         // Checks board, returns get functions for winner and state of who won
         const check = function(playerSymbol, computerSymbol) {
             // Make winner object
@@ -138,7 +126,7 @@ const Game = (function() {
 
                 // Iterates through the rows of a Tic Tac Toe's grid row list
                 // Updates local player and computer array if there is symbol
-                const checkContents = function(row, rowNumber) {
+                const checkContents = function(row) {
                     let playerRow = new Array(3);
                     let computerRow = new Array(3);
                     
@@ -438,7 +426,7 @@ const Game = (function() {
             board = [ new Array(3), new Array(3), new Array(3) ];
         }
 
-        return { write, showBoard, check, askWrite, randomWrite };
+        return { showBoard, check, askWrite, randomWrite };
     };
 
     // Lets player decide what symbol or side they will play as
@@ -469,16 +457,6 @@ const Game = (function() {
         let player = 0;
         let computer = 0;
 
-        // Sets score of player
-        const resetPlayerScore = function() {
-            player = 0;
-        };
-
-        // Sets score of computer
-        const resetCompScore = function() {
-            computer = 0;
-        };
-
         // Increments score of player
         const addPlayerScore = function() {
             player++;
@@ -487,15 +465,6 @@ const Game = (function() {
         // Increments score of computer
         const addCompScore = function() {
             computer++;
-        };
-
-        // Decrements score of player
-        const subPlayerScore = function() {
-            player--;
-        };
-
-        const subCompScore = function() {
-            computer--;
         };
 
         // Shows score of player
@@ -529,7 +498,7 @@ const Game = (function() {
             return;
         }
 
-        return { resetPlayerScore, resetCompScore, addPlayerScore, addCompScore, subPlayerScore, subCompScore, setMaxScore, getPlayerScore, getComputerScore, getMaxScore, findWinner };
+        return { addPlayerScore, addCompScore, setMaxScore, getPlayerScore, getComputerScore, getMaxScore, findWinner };
     })();
 
     return { playGame };
