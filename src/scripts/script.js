@@ -106,10 +106,10 @@ const Game = (function() {
             }
 
             // Check if there is winner vertically & diagonally, returns true when there is winner, false if not
-            const checkVertDiag = (function() {
+            const checkVertDiag = (function(getInfo) {
                 // Get grids from getInfo method
-                const playerGrid = this.getInfo.player;
-                const computerGrid = this.getInfo.computer;
+                const playerGrid = getInfo.player;
+                const computerGrid = getInfo.computer;
 
                 // Determine winning amount of symbols in a vertical
                 const winningLine = 3;
@@ -278,7 +278,7 @@ const Game = (function() {
                 }
 
                 return false;
-            })();
+            })(getInfo);
 
             // If vertically checking the board, we found a winner
             if (checkVertDiag === true) {
