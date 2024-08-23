@@ -45,12 +45,12 @@ const Game = (function() {
             }
 
             // Gathers information about the grid, and returns new grids without empty rows
-            const getInfo = (function() {
+            const getInfo = (function(board) {
                 let player = [];
                 let computer = [];
 
                 // Update contents of player and computer
-                this.board.map(checkContents);
+                board.map(checkContents);
 
                 // Iterates through the rows of a Tic Tac Toe's grid row list
                 // Updates local player and computer array if there is symbol
@@ -98,7 +98,7 @@ const Game = (function() {
                 };
 
                 return { player, computer };
-            }.bind(this))();
+            })(board);
 
             // Check if there is a winner going through getInfo function
             if (getInfo !== undefined) {
@@ -278,7 +278,7 @@ const Game = (function() {
                 }
 
                 return false;
-            }.bind(this))();
+            })();
 
             // If vertically checking the board, we found a winner
             if (checkVertDiag === true) {
