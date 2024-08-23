@@ -25,7 +25,7 @@ const Game = (function() {
             let gameWinner = gameBoard.check(playerSymbol, computerSymbol);
             
             // Play/continue board game while there is no game winner
-            while (gameWinner.getIsWinner === false) {
+            while (gameWinner.getIsWinner() === false) {
                 gameBoard.playerWrite();
 
                 // Determine winner of game again by checking board
@@ -133,11 +133,6 @@ const Game = (function() {
 
                 return { player, computer };
             })(board);
-
-            // Check if there is a winner going through getInfo function
-            if (getInfo !== undefined) {
-                return { winner };
-            }
 
             // Check if there is winner vertically & diagonally, returns true when there is winner, false if not
             const checkVertDiag = (function(getInfo) {
@@ -313,11 +308,6 @@ const Game = (function() {
 
                 return false;
             })(getInfo);
-
-            // If vertically checking the board, we found a winner
-            if (checkVertDiag === true) {
-                return { winner };
-            }
 
             const getWinner = function() {
                 return winner.name;
