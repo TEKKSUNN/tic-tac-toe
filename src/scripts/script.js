@@ -280,7 +280,7 @@ const Game = (function() {
             }.bind(this))();
 
             // If vertically checking the board, we found a winner
-            if (checkVertical === true) {
+            if (checkVertDiag === true) {
                 return { winner };
             }
 
