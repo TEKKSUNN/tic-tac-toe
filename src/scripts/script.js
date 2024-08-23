@@ -87,35 +87,44 @@ const Game = (function() {
                 // Iterates through the rows of a Tic Tac Toe's grid row list
                 // Updates local player and computer array if there is symbol
                 const checkContents = function(row, rowNumber) {
-                    let playerRow = [];
-                    let computerRow = [];
+                    let playerRow = new Array(3);
+                    let computerRow = new Array(3);
                     
                     // Adds symbols to the new player and computer row
                     row.map((symbol, index) => {
                         // Check if symbol exists
                         if (symbol !== undefined) {
-                            // Make object that records the symbols's information
-                            const symbolInfo = { symbol, index, rowNumber };
-
                             // If player's symbol, add to player
                             if (symbol === playerSymbol) {
-                                playerRow.push(symbolInfo);
+                                playerRow[rowNumber][index] = symbol;
                             }
 
                             // Else, if computer's symbol, add to computer
                             else if (symbol === computerSymbol) {
-                                computerRow.push(symbolInfo);
+                                computerRow[rowNumber][index] = symbol;
                             }
                         }
                     });
 
+                    // Return a new array that removes undefined items
+                    const removeUndefined = function(array) {
+                        newArray = [];
+                        array.map((value) => {
+                            if (value === undefined) {
+                                return;
+                            }
+                            newArray.push(value);
+                        });
+                        return newArray;
+                    };
+
                     // Check if either side wins horizontally
                     const winningLine = 3;
-                    if (playerRow.length >= winningLine) {
+                    if (removeUndefined(playerRow).length >= winningLine) {
                         declareWinner("Player");
                         return;
                     }
-                    if (computerRow.length >= winningLine) {
+                    if (removeUndefined(computerRow).length >= winningLine) {
                         declareWinner("Computer");
                         return;
                     }
