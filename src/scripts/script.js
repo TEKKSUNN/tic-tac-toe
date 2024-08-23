@@ -1,7 +1,10 @@
 const Game = (function() {
     // Plays the game
     const playGame = function() {
+        // Declare 3x3 object for Tic Tac Toe
         const gameBoard = GameBoard();
+
+        // Determine scores
         let playerScore = Score.getPlayerScore();
         let computerScore = Score.getComputerScore();
         const MAX_SCORE = Score.getMaxScore();
