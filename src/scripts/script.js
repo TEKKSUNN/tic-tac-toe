@@ -41,6 +41,7 @@ const Game = (function() {
             const declareWinner = function(name) {
                 winner.name = name;
                 winner.isWinner = true;
+                resetBoard();
             }
 
             // Gathers information about the grid, and returns new grids without empty rows
@@ -307,6 +308,11 @@ const Game = (function() {
             // Turn grid to a string separated by newlines & log to console
             console.log(grid.join("\n"));
         };
+
+        // Resets board
+        const resetBoard = function() {
+            board = [ new Array(3), new Array(3), new Array(3) ];
+        }
 
         return { write, showBoard };
     };
