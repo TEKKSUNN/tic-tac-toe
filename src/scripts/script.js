@@ -21,6 +21,12 @@ const Game = (function() {
             // Make winner object
             let winner = { name: null, isWinner: false };
 
+            // Declares the winner
+            const declareWinner = function(name) {
+                winner.name = name;
+                winner.isWinner = true;
+            }
+
             // Gathers information about the grid, and returns new grids without empty rows
             const getInfo = (function() {
                 let player = [];
@@ -57,13 +63,11 @@ const Game = (function() {
                     // Check if either side wins horizontally
                     const winningLine = 3;
                     if (playerRow.length >= winningLine) {
-                        this.winner.name = "Player";
-                        this.winner.isWinner = true;
+                        declareWinner("Player");
                         return;
                     }
                     if (computerRow.length >= winningLine) {
-                        this.winner.name = "Computer";
-                        this.winner.isWinner = true;
+                        declareWinner("Computer");
                         return;
                     }
 
@@ -119,8 +123,7 @@ const Game = (function() {
 
                         // If there is a vertical "row" with three symbols in it
                         if (verticalRow.length === 3) {
-                            this.winner.name = "Player";
-                            this.winner.isWinner = true;
+                            declareWinner("Player");
                             return true;
                         }
                     }
@@ -146,8 +149,7 @@ const Game = (function() {
 
                     // If there is a diagonal "row" with three symbols in it
                     if (diagonalRow.length === winningLine) {
-                        this.winner.name = "Player";
-                        this.winner.isWinner = true;
+                        declareWinner("Player");
                         return true;
                     }
                     else {
@@ -172,8 +174,7 @@ const Game = (function() {
 
                     // If there is a diagonal "row" with three symbols in it
                     if (diagonalRow.length === winningLine) {
-                        this.winner.name = "Player";
-                        this.winner.isWinner = true;
+                        declareWinner("Player");
                         return true;
                     }
                 }
@@ -203,8 +204,7 @@ const Game = (function() {
 
                         // If there is a vertical "row" with three symbols in it
                         if (verticalRow.length === 3) {
-                            this.winner.name = "Computer";
-                            this.winner.isWinner = true;
+                            declareWinner("Computer");
                             return true;
                         }
                     }
@@ -230,8 +230,7 @@ const Game = (function() {
 
                     // If there is a diagonal "row" with three symbols in it
                     if (diagonalRow.length === winningLine) {
-                        this.winner.name = "Computer";
-                        this.winner.isWinner = true;
+                        declareWinner("Computer");
                         return true;
                     }
                     else {
@@ -256,8 +255,7 @@ const Game = (function() {
 
                     // If there is a diagonal "row" with three symbols in it
                     if (diagonalRow.length === winningLine) {
-                        this.winner.name = "Computer";
-                        this.winner.isWinner = true;
+                        declareWinner("Computer");
                         return true;
                     }
                 }
@@ -315,22 +313,22 @@ const Game = (function() {
         };
 
         // Increments score of player
-        const addPlayerScore = function(score) {
-            player += score;
+        const addPlayerScore = function() {
+            player++;
         };
 
         // Increments score of computer
-        const addCompScore = function(score) {
-            computer += score;
+        const addCompScore = function() {
+            computer++;
         };
 
         // Decrements score of player
-        const subPlayerScore = function(score) {
-            player -= score;
+        const subPlayerScore = function() {
+            player--;
         };
 
-        const subCompScore = function(score) {
-            computer -= score;
+        const subCompScore = function() {
+            computer--;
         };
 
         // Shows score of player
