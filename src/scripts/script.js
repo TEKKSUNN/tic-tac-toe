@@ -26,10 +26,25 @@ const Game = (function() {
             
             // Play/continue board game while there is no game winner
             while (gameWinner.getIsWinner() === false) {
-                gameBoard.askWrite(playerSymbol);
-                gameBoard.showBoard();
-                gameBoard.randomWrite(computerSymbol);
-                gameBoard.showBoard();
+                const symbolThatGoesFirst = "X";
+                if (playerSymbol === symbolThatGoesFirst) {
+                    gameBoard.askWrite(playerSymbol);
+                    gameBoard.showBoard();
+                    gameWinner = gameBoard.check(playerSymbol, computerSymbol);
+                    if (gameWinner.getIsWinner() !== false) {
+                        gameBoard.randomWrite(computerSymbol);
+                        gameBoard.showBoard();
+                    }
+                    else {
+                        break;
+                    }
+                }
+                else {
+                    gameBoard.randomWrite(computerSymbol);
+                    gameBoard.showBoard();
+                    gameBoard.askWrite(playerSymbol);
+                    gameBoard.showBoard();
+                }
 
                 // Determine winner of game again by checking board
                 gameWinner = gameBoard.check(playerSymbol, computerSymbol);
