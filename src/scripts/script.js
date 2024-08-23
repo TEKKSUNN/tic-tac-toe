@@ -52,7 +52,9 @@ const Game = (function() {
                 row = parseInt(window.prompt("Row:"));
                 column = parseInt(window.prompt("Column:"));
                 try {
-                    board[row][column] = playerSymbol;
+                    if (board[row][column] === undefined) {
+                        board[row][column] = playerSymbol;
+                    }
                 } catch (IndexError) {
                     window.alert("Out of range.");
                     continue;
