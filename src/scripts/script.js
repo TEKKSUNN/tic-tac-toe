@@ -35,6 +35,22 @@ const Game = (function() {
                 gameWinner = gameBoard.check(playerSymbol, computerSymbol);
             }
 
+            // Handle winner scenario
+            (function handleWinner(name, ScoreObject) {
+                if (name === "Player") {
+                    window.alert("You won the game!");
+                    ScoreObject.addPlayerScore();
+                }
+                else if (name === "Computer") {
+                    window.alert("You lost the game!");
+                    ScoreObject.addCompScore();
+                }
+            })(gameWinner.getWinner(), Score);
+
+            (function showScoreCount(ScoreObject) {
+                console.log(`You: ${ScoreObject.getPlayerScore()}, Computer: ${ScoreObject.getComputerScore()}`);
+            })(Score);
+
             // Find max score winner again & change value of scoreWinner
             scoreWinner = Score.findWinner();
         }
