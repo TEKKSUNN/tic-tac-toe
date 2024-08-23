@@ -11,6 +11,10 @@ const Game = (function() {
 
         // Asks user for symbol, and assigns symbol accordingly
         const symbols = assignSymbols();
+
+        // Determine symbols
+        const playerSymbol = symbols.player;
+        const computerSymbol = symbols.computer;
     };
 
     // The 3x3 grid used for Tic Tac Toe
