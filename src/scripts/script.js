@@ -22,12 +22,12 @@ const Game = (function() {
         // While no-one has reached max score
         while (scoreWinner === undefined) {
             // Determine winner of a game
-            let gameWinner = gameBoard.check(playerSymbol, computerSymbol).winner;
+            let gameWinner = gameBoard.check(playerSymbol, computerSymbol);
             
             // Play/continue board game while there is no game winner
-            while (gameWinner.isWinner === false) {
+            while (gameWinner.getIsWinner === false) {
                 // Determine winner of game again by checking board
-                gameWinner = gameBoard.check(playerSymbol, computerSymbol).winner;
+                gameWinner = gameBoard.check(playerSymbol, computerSymbol);
             }
 
             // Find max score winner again & change value of scoreWinner
@@ -47,7 +47,7 @@ const Game = (function() {
             }
         };
 
-        // Checks board, returns winner, and returns who won (if there is)
+        // Checks board, returns get functions for winner and state of who won
         const check = function(playerSymbol, computerSymbol) {
             // Make winner object
             let winner = { name: null, isWinner: false };
@@ -300,7 +300,15 @@ const Game = (function() {
                 return { winner };
             }
 
-            return { winner };
+            const getWinner = function() {
+                return winner.name;
+            }
+
+            const getIsWinner = function() {
+                return winner.isWinner;
+            }
+
+            return { getWinner, getIsWinner };
         };
 
         // Shows board visually in console
