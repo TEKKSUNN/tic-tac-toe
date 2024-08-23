@@ -346,13 +346,13 @@ const Game = (function() {
         let computer = 0;
 
         // Sets score of player
-        const setPlayerScore = function(score) {
-            player = score;
+        const resetPlayerScore = function() {
+            player = 0;
         };
 
         // Sets score of computer
-        const setCompScore = function(score) {
-            computer = score;
+        const resetCompScore = function() {
+            computer = 0;
         };
 
         // Increments score of player
