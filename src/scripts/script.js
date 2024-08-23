@@ -26,7 +26,8 @@ const Game = (function() {
             
             // Play/continue board game while there is no game winner
             while (gameWinner.getIsWinner() === false) {
-                gameBoard.playerWrite();
+                gameBoard.playerWrite(playerSymbol);
+                gameBoard.showBoard();
 
                 // Determine winner of game again by checking board
                 gameWinner = gameBoard.check(playerSymbol, computerSymbol);
