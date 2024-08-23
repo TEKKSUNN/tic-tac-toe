@@ -2,6 +2,9 @@ const Game = (function() {
     // Plays the game
     const playGame = function() {
         const gameBoard = GameBoard();
+        let playerScore = Score.getPlayerScore();
+        let computerScore = Score.getComputerScore();
+        const MAX_SCORE = Score.getMaxScore();
     };
 
     // The 3x3 grid used for Tic Tac Toe
