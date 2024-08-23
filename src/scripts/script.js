@@ -168,6 +168,11 @@ const Game = (function() {
                             let currentSymbol;
                             try {
                                 currentSymbol = playerGrid[row][column];
+
+                                // Handle empty symbol
+                                if (currentSymbol === undefined) {
+                                    break;
+                                }
                             } catch (IndexError) {
                                 // Get out of "row" for loop and continue with "column" for loop
                                 break;
@@ -194,6 +199,11 @@ const Game = (function() {
                         let currentSymbol;
                         try {
                             currentSymbol = playerGrid[count][count];
+                            
+                            // Handle empty symbol
+                            if (currentSymbol === undefined) {
+                                break;
+                            }
                         } catch (IndexError) {
                             // Get out of loop and continue with next diagonal check
                             break;
@@ -219,6 +229,11 @@ const Game = (function() {
                         let currentSymbol;
                         try {
                             currentSymbol = playerGrid[count][count];
+
+                            // Handle empty symbol
+                            if (currentSymbol === undefined) {
+                                break;
+                            }
                         } catch (IndexError) {
                             // Get out of loop
                             break;
@@ -249,6 +264,11 @@ const Game = (function() {
                             let currentSymbol;
                             try {
                                 currentSymbol = computerGrid[row][column];
+                                
+                                // Handle empty symbol
+                                if (currentSymbol === undefined) {
+                                    break;
+                                }
                             } catch (IndexError) {
                                 // Get out of "row" for loop and continue with "column" for loop
                                 break;
@@ -275,6 +295,11 @@ const Game = (function() {
                         let currentSymbol;
                         try {
                             currentSymbol = computerGrid[count][count];
+
+                            // Handle empty symbol
+                            if (currentSymbol === undefined) {
+                                break;
+                            }
                         } catch (IndexError) {
                             // Get out of loop and continue with next diagonal check
                             break;
@@ -300,6 +325,11 @@ const Game = (function() {
                         let currentSymbol;
                         try {
                             currentSymbol = computerGrid[count][count];
+
+                            // Handle empty symbol
+                            if (currentSymbol === undefined) {
+                                break;
+                            }
                         } catch (IndexError) {
                             // Get out of loop
                             break;
