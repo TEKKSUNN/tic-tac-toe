@@ -18,6 +18,21 @@ const Game = (function() {
 
         // Variable for checking winner based on max score
         let scoreWinner = Score.findWinner();
+
+        // While no-one has reached max score
+        while (scoreWinner === undefined) {
+            // Determine winner of a game
+            let gameWinner = gameBoard.check(playerSymbol, computerSymbol).winner;
+            
+            // Play/continue board game while there is no game winner
+            while (gameWinner.isWinner === false) {
+                // Determine winner of game again by checking board
+                gameWinner = gameBoard.check(playerSymbol, computerSymbol).winner;
+            }
+
+            // Find max score winner again & change value of scoreWinner
+            scoreWinner = Score.findWinner();
+        }
     };
 
     // The 3x3 grid used for Tic Tac Toe
