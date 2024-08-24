@@ -49,6 +49,10 @@ header a:hover {
     border: 1px solid whitesmoke;
 }
 
+#game-board > div:hover {
+    background-color: rgba(122, 122, 122, 0.25);
+}
+
 .buttons {
     display: flex;
     justify-content: center;
