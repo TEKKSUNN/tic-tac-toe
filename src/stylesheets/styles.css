@@ -7,6 +7,7 @@
 :root {
     --main-color: #005eac;
     --secondary-color: #f6cde1;
+    --mild-shadow: 5px 5px 8px rgba(0, 0, 0, 0.25);
 }
 
 body {
@@ -79,4 +80,5 @@ button.game-btn {
 button:hover {
     background-color: var(--main-color);
     color: var(--secondary-color);
+    box-shadow: var(--mild-shadow);
 }
