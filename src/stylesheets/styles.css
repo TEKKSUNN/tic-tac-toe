@@ -1,0 +1,33 @@
+@import url("../fonts/Roboto-Font/stylesheet.css");
+
+* {
+    font-family: 'robotoregular';
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    width: auto;
+    background-image:
+        linear-gradient(rgba(0, 0, 0, 0), rgba(245, 245, 245, 0.5)),
+        url(../images/duotone.png);
+    background-repeat: round no-repeat;
+}
+
+header {
+    padding-left: 4px;
+}
+
+header * {
+    margin: 0;
+    padding: 0;
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 16px;
+    text-decoration: none;
+}
+
+header a:hover {
+    color: rgba(255, 255, 255, 0.75);
+    text-decoration: underline;
+}
