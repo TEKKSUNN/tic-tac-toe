@@ -503,3 +503,22 @@ const Game = (function() {
 
     return { playGame };
 })();
+
+/* TODO:
+    - Deal with pre-game
+    -- If user clicks any of the square even without the game starting, it will update the board with the appropriate symbol, the symbols alternating between "X" and "O" each click
+    -- If there is a winning side, reset board
+
+    - Deal with start of game
+    -- Link start button with the opening of the dialog asking what the user wants to play as, once dialog is closed, then start the game after that
+
+    - Deal with during of game
+    -- Make a new button named "Cancel Game", and dialog that shows the cancel message, once cancel message is closed, restart back to normal
+    -- After each start of a game, pop-up a message telling what game number it is. e.g. "Game 1 has started!"
+
+    - Deal with end of game
+    -- Go back to playing game
+
+    - Deal with true end of game (either side reached max score)
+    -- Pop-up a message telling who won, then once pop-up is closed, return the game to normal, which is pre-game stage
+*/
