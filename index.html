@@ -9,8 +9,27 @@
 </head>
 <body>
     <header>
-        <h1>Tic Tac Toe by <a href="https://github.com/TEKKSUNN/" rel="noopener noreferrer">TEKKSUNN</a></h1>
+        <h1>Tic Tac Toe by <a href="https://github.com/TEKKSUNN/" rel="noopener noreferrer" target="_blank">TEKKSUNN</a></h1>
     </header>
-    <main></main>
+    <main>
+        <div id="game-board">
+            <div class="square"></div>
+            <div class="square"></div>
+            <div class="square"></div>
+            <div class="square"></div>
+            <div class="square"></div>
+            <div class="square"></div>
+            <div class="square"></div>
+            <div class="square"></div>
+            <div class="square"></div>
+        </div>
+        <div class="buttons">
+            <dialog class="pop-up" id="start-msg">
+                <button id="close-dialog">X</button>
+                <p>Game has started!</p>
+            </dialog>
+            <button id="start-btn" class="game-btn">Start Game</button>
+        </div>
+    </main>
 </body>
 </html>
