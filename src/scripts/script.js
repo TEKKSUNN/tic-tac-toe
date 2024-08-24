@@ -69,7 +69,7 @@ const Game = (function() {
     // The 3x3 grid used for Tic Tac Toe
     const GameBoard = function() {
         // The Tic Tac Toe board
-        let board = [ new Array(3), new Array(3), new Array(3) ];
+        let board = [ [undefined, undefined, undefined], [undefined, undefined, undefined], [undefined, undefined, undefined] ];
 
         // Asks player where to write on board
         const askWrite = function(playerSymbol) {
@@ -426,7 +426,54 @@ const Game = (function() {
             board = [ new Array(3), new Array(3), new Array(3) ];
         }
 
-        return { showBoard, check, askWrite, randomWrite };
+        // Updates board on GUI version
+        const updateBoard = function(listParent, squareFunction) {
+            // Recreates grid, but in a linear version
+            let linearGrid = [];
+            board.map((row) => {
+                row.map((symbol) => {
+                    if (symbol !== undefined) {
+                        linearGrid.push(symbol);
+                    }
+                    else {
+                        linearGrid.push(" ");
+                    }
+                });
+            });
+            const newListParent = document.createElement("div");
+            newListParent.id = listParent.id;
+            linearGrid.forEach((symbol) => {
+                const newSquare = document.createElement("div");
+                newSquare.className = "square";
+                newSquare.textContent = symbol;
+                newListParent.appendChild(newSquare);
+            });
+            listParent.innerHTML = newListParent.innerHTML;
+            Array.from(document.querySelectorAll(".square")).forEach((squareNode) => {
+                squareNode.addEventListener("click", squareFunction);
+            })
+        }
+
+        // Writes on board (for GUI version)
+        const write = function(squareNum, symbol, squareParent, squareFunction) {
+            let row = 0;
+            let column = 0;
+            for (let i = 0; i < squareNum; i++) {
+                if (column < 2) {
+                    column++;
+                }
+                else {
+                    row++;
+                    column = 0;
+                }
+            }
+            if (board[row][column] === undefined) {
+                board[row][column] = symbol;
+            }
+            updateBoard(squareParent, squareFunction);
+        };
+
+        return { showBoard, check, askWrite, randomWrite, updateBoard, write };
     };
 
     // Lets player decide what symbol or side they will play as
@@ -500,6 +547,35 @@ const Game = (function() {
 
         return { addPlayerScore, addCompScore, setMaxScore, getPlayerScore, getComputerScore, getMaxScore, findWinner };
     })();
+
+    // For the GUI version
+    document.addEventListener("DOMContentLoaded", () => {
+        let SQUARES_PARENT = document.querySelector("#game-board");
+        let SQUARES = Array.from(document.querySelectorAll(".square"));
+        const gameBoard = GameBoard();
+
+        (function handlePreGame() {
+            let currentSymbol = "X";
+            const alternateSymbol = function() {
+                SQUARES_PARENT = document.querySelector("#game-board");
+                gameBoard.updateBoard(SQUARES_PARENT, alternateSymbol);
+                SQUARES = Array.from(document.querySelectorAll(".square"));
+                SQUARES.forEach((square, index) => {
+                    square.addEventListener("click", () => {
+                        gameBoard.write(index, currentSymbol, SQUARES_PARENT, alternateSymbol);
+                        if (currentSymbol === "X") {
+                            currentSymbol = "O";
+                        }
+                        else if (currentSymbol === "O") {
+                            currentSymbol = "X";
+                        }
+                    })
+                });
+            };
+            
+            gameBoard.updateBoard(SQUARES_PARENT, alternateSymbol);
+        })();
+    });
 
     return { playGame };
 })();
