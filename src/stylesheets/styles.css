@@ -48,3 +48,31 @@ header a:hover {
     background-color: rgba(245, 245, 245, 0.50);
     border: 1px solid whitesmoke;
 }
+
+.buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+button.game-btn {
+    font-family: 'robotothin';
+    border: 5px solid whitesmoke;
+    padding: 16px;
+    font-weight: bold;
+    font-size: 2.5rem;
+    border-radius: 25px;
+}
+
+button:hover {
+    border: 5px solid black;
+}
+
+button#start-btn {
+    background-color: rgba(61, 193, 245, 0.5);
+}
+
+button#start-btn:hover {
+    color: white;
+    background-color: rgba(11, 36, 46, 0.25);
+}
