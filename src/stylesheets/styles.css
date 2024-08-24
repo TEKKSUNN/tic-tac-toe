@@ -13,6 +13,11 @@ body {
         linear-gradient(rgba(0, 0, 0, 0), rgba(245, 245, 245, 0.5)),
         url(../images/duotone.png);
     background-repeat: round no-repeat;
+    display: grid;
+    grid-auto-flow: row;
+    grid-template-columns: 1fr;
+    grid-template-rows: min-content 2fr 1fr;
+    justify-content: center;
 }
 
 header {
@@ -30,4 +35,16 @@ header * {
 header a:hover {
     color: rgba(255, 255, 255, 0.75);
     text-decoration: underline;
+}
+
+#game-board {
+    display: grid;
+    grid-template: repeat(3, minmax(50px, 1fr)) / repeat(3, minmax(50px, 10vw));
+    justify-content: center;
+    align-content: center;
+}
+
+#game-board > div {
+    background-color: rgba(245, 245, 245, 0.50);
+    border: 1px solid whitesmoke;
 }
