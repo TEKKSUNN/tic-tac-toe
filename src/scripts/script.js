@@ -573,18 +573,112 @@ const Game = (function() {
         // Make tic tac toe board
         const gameBoard = GameBoard();
 
-        // Handle Pre-game
-        (function handlePreGame() {
-            const alternateSymbol = function() {
+        // Symbols declaration
+        let playerSymbol = undefined;
+        let computerSymbol = undefined;
+
+        const updateSquares = function() {
+            const squareFunction = function() {
                 const SQUARES_PARENT = document.querySelector("#game-board");
                 const SQUARES = Array.from(document.querySelectorAll(".square"));
                 SQUARES.forEach((square, index) => {
                     square.addEventListener("click", () => {
-                        gameBoard.sequenceWrite(index, SQUARES_PARENT, alternateSymbol);
+                        gameBoard.sequenceWrite(index, SQUARES_PARENT, squareFunction);
                     })
                 });
             };
-            gameBoard.updateBoard(document.querySelector("#game-board") /* Equivalent to SQUARES_PARENT */, alternateSymbol);
+            gameBoard.updateBoard(document.querySelector("#game-board") /* Equivalent to SQUARES_PARENT */, squareFunction);
+        };
+
+        // Handle Pre-game
+        (function handlePreGame() {
+            updateSquares();
+        })();
+
+        // Changes button & dialog based on mode given
+        const changeState = function(button, dialog, mode) {
+            const validModes = ["start", "during", "end", "pre-game"];
+            if (!validModes.includes(mode)) {
+                return;
+            }
+
+            // Handles dialog
+            dialog.showModal();
+            const handleCloseDialog = function() {
+                dialog.close();
+            }
+            const closeDialog = document.querySelector("dialog>.container>button#close-dialog");
+            if (closeDialog !== null){
+                closeDialog.addEventListener("click", handleCloseDialog);
+            }
+
+            // Changes dialog
+            const changeDialog = function(oldDialog, newDialog) {
+                oldDialog.innerHTML = newDialog.innerHTML;
+            }
+
+            // Shows dialog
+            const showDialog = function(dialog) {
+                dialog.showModal();
+            }
+
+            // Change of button & dialog
+            if (mode === "start") {
+                const newDialog = document.createElement("dialog");
+                const newContainer = document.createElement("div");
+                newContainer.className = "container";
+                const newMessage = document.createElement("p");
+                newMessage.textContent = "Game has started!";
+                const newCloseButton = document.createElement("button");
+                newCloseButton.id = "close-dialog";
+                newCloseButton.textContent = "OK";
+                newContainer.appendChild(newMessage);
+                newContainer.appendChild(newCloseButton);
+                newDialog.appendChild(newContainer);
+                const handleSecondDialog = function() {
+                    document.querySelector("button#close-dialog").addEventListener("click", () => {
+                        const startButton = document.querySelector("button#start-btn.game-btn");
+                        handleCloseDialog();
+                        startButton.textContent = "Cancel Game";
+                        startButton.id = "cancel-btn";
+                    });
+                }
+                Array.from(document.querySelectorAll("dialog .sides>button")).forEach((button) => {
+                    if (button.textContent === "X") {
+                        button.addEventListener("click", () => {
+                            playerSymbol = "X";
+                            computerSymbol = "O";
+                            handleCloseDialog();
+                            changeDialog(dialog, newDialog);
+                            showDialog(dialog);
+                            handleSecondDialog();
+                        });
+                    }
+                    else if (button.textContent === "O") {
+                        button.addEventListener("click", () => {
+                            playerSymbol = "O";
+                            computerSymbol = "X";
+                            handleCloseDialog();
+                            changeDialog(dialog, newDialog);
+                            showDialog(dialog);
+                            handleSecondDialog();
+                        });
+                    }
+                });
+            }
+        };
+
+        // Handle start of game
+        (function handleStartGame() {
+            const startButton = document.querySelector("button#start-btn");
+            const handleClick = function(event) {
+                const button = event.target;
+                const dialog = document.querySelector("div>dialog.pop-up");
+                changeState(button, dialog, "start");
+            };
+            startButton.addEventListener("click", handleClick);
+            gameBoard.resetBoard();
+            updateSquares();
         })();
     });
 
