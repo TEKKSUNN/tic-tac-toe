@@ -423,7 +423,7 @@ const Game = (function() {
 
         // Resets board
         const resetBoard = function() {
-            board = [ new Array(3), new Array(3), new Array(3) ];
+            board = [ [undefined, undefined, undefined], [undefined, undefined, undefined], [undefined, undefined, undefined] ];
         }
 
         // Updates board on GUI version
@@ -450,6 +450,9 @@ const Game = (function() {
             });
             listParent.innerHTML = newListParent.innerHTML;
             squareFunction();
+            if (check("X", "O").getIsWinner() === true) {
+                resetBoard();
+            }
         }
 
         // Writes on board (for GUI version)
