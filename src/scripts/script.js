@@ -657,6 +657,8 @@ const Game = (function() {
                             changeDialog(dialog, newDialog);
                             showDialog(dialog);
                             handleSecondDialog();
+                            gameBoard.resetBoard();
+                            updateSquares();
                         });
                     }
                     else if (button.textContent === "O") {
@@ -667,6 +669,8 @@ const Game = (function() {
                             changeDialog(dialog, newDialog);
                             showDialog(dialog);
                             handleSecondDialog();
+                            gameBoard.resetBoard();
+                            updateSquares();
                         });
                     }
                 });
@@ -682,8 +686,6 @@ const Game = (function() {
                 changeState(button, dialog, "start");
             };
             startButton.addEventListener("click", handleClick);
-            gameBoard.resetBoard();
-            updateSquares();
         })();
     });
 
