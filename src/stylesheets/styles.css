@@ -89,3 +89,54 @@ button:hover {
     color: var(--secondary-color);
     box-shadow: var(--mild-shadow);
 }
+
+.pop-up {
+    border-radius: 25px;
+    font-size: 25px;
+    border: 0;
+    background-color: var(--main-color);
+    color: var(--secondary-color);
+}
+
+.pop-up > .container {
+    display: flex;
+    flex-direction: column;
+}
+
+.pop-up::backdrop {
+    background-image: linear-gradient(var(--main-color), var(--secondary-color));
+    opacity: 0.5;
+}
+
+.pop-up > .container > p {
+    margin: 0;
+    padding: 0;
+}
+
+button#close-dialog,
+button.side {
+    border-radius: 25px;
+    font-size: 12px;
+    border: 0;
+    background-color: var(--secondary-color);
+    color: var(--main-color);
+    align-self: flex-end;
+}
+
+button#close-dialog:hover,
+button.side:hover {
+    background-color: yellow;
+    color: black;
+    box-shadow: var(--mild-shadow);
+}
+
+.pop-up .sides {
+    display: flex;
+    justify-content: space-around;
+}
+
+.pop-up#start-msg button {
+    font-size: 25px;
+    border-radius: 10px;
+    padding: 0 16px;
+}
