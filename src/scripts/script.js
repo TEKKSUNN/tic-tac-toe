@@ -480,14 +480,20 @@ const Game = (function() {
                     }
                 });
             });
-            const symbol = symbolX > symbolO ? "O" : "X";
+            let symbol = symbolX > symbolO ? "O" : "X";
+            console.log(symbolX);
+            console.log(symbolO);
+            if (symbolX === 5 || symbolO === 5) {
+                resetBoard();
+                symbol = "X";
+            }
             if (board[row][column] === undefined) {
                 board[row][column] = symbol;
             }
             updateBoard(squareParent, squareFunction);
         };
 
-        return { showBoard, check, askWrite, randomWrite, updateBoard, sequenceWrite };
+        return { showBoard, check, askWrite, randomWrite, updateBoard, sequenceWrite, resetBoard };
     };
 
     // Lets player decide what symbol or side they will play as
