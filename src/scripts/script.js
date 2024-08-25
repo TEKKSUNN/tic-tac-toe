@@ -620,25 +620,32 @@ const Game = (function() {
                 dialog.showModal();
             }
 
-            // Change of button & dialog
-            if (mode === "start") {
+            // Creates a normal dialog, returns the dialog element
+            const createNewDialog = function(msg) {
                 const newDialog = document.createElement("dialog");
                 const newContainer = document.createElement("div");
                 newContainer.className = "container";
                 const newMessage = document.createElement("p");
-                newMessage.textContent = "Game has started!";
+                newMessage.textContent = msg;
                 const newCloseButton = document.createElement("button");
                 newCloseButton.id = "close-dialog";
                 newCloseButton.textContent = "OK";
                 newContainer.appendChild(newMessage);
                 newContainer.appendChild(newCloseButton);
                 newDialog.appendChild(newContainer);
+                return newDialog;
+            }
+
+            // Change of button & dialog
+            if (mode === "start") {
+                const newDialog = createNewDialog("Game has started!");
                 const handleSecondDialog = function() {
                     document.querySelector("button#close-dialog").addEventListener("click", () => {
-                        const startButton = document.querySelector("button#start-btn.game-btn");
                         handleCloseDialog();
-                        startButton.textContent = "Cancel Game";
-                        startButton.id = "cancel-btn";
+                        button.textContent = "Cancel Game";
+                        button.id = "cancel-btn";
+                        const newDialog = createNewDialog("Game has been cancelled!");
+                        changeDialog(dialog, newDialog);
                     });
                 }
                 Array.from(document.querySelectorAll("dialog .sides>button")).forEach((button) => {
