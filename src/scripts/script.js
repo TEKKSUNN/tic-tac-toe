@@ -564,22 +564,21 @@ const Game = (function() {
 
     // For the GUI version
     document.addEventListener("DOMContentLoaded", () => {
-        let SQUARES_PARENT = document.querySelector("#game-board");
-        let SQUARES = Array.from(document.querySelectorAll(".square"));
+        // Make tic tac toe board
         const gameBoard = GameBoard();
 
+        // Handle Pre-game
         (function handlePreGame() {
             const alternateSymbol = function() {
-                SQUARES_PARENT = document.querySelector("#game-board");
-                SQUARES = Array.from(document.querySelectorAll(".square"));
+                const SQUARES_PARENT = document.querySelector("#game-board");
+                const SQUARES = Array.from(document.querySelectorAll(".square"));
                 SQUARES.forEach((square, index) => {
                     square.addEventListener("click", () => {
                         gameBoard.sequenceWrite(index, SQUARES_PARENT, alternateSymbol);
                     })
                 });
             };
-            
-            gameBoard.updateBoard(SQUARES_PARENT, alternateSymbol);
+            gameBoard.updateBoard(document.querySelector("#game-board") /* Equivalent to SQUARES_PARENT */, alternateSymbol);
         })();
     });
 
