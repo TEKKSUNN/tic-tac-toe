@@ -449,13 +449,11 @@ const Game = (function() {
                 newListParent.appendChild(newSquare);
             });
             listParent.innerHTML = newListParent.innerHTML;
-            Array.from(document.querySelectorAll(".square")).forEach((squareNode) => {
-                squareNode.addEventListener("click", squareFunction);
-            })
+            squareFunction();
         }
 
         // Writes on board (for GUI version)
-        const write = function(squareNum, symbol, squareParent, squareFunction) {
+        const sequenceWrite = function(squareNum, squareParent, squareFunction) {
             let row = 0;
             let column = 0;
             for (let i = 0; i < squareNum; i++) {
@@ -467,13 +465,26 @@ const Game = (function() {
                     column = 0;
                 }
             }
+            let symbolX = 0;
+            let symbolO = 0;
+            board.map((row) => {
+                row.map((symbol) => {
+                    if (symbol === "X") {
+                        symbolX++;
+                    }
+                    else if (symbol === "O") {
+                        symbolO++;
+                    }
+                });
+            });
+            const symbol = symbolX > symbolO ? "O" : "X";
             if (board[row][column] === undefined) {
                 board[row][column] = symbol;
             }
             updateBoard(squareParent, squareFunction);
         };
 
-        return { showBoard, check, askWrite, randomWrite, updateBoard, write };
+        return { showBoard, check, askWrite, randomWrite, updateBoard, sequenceWrite };
     };
 
     // Lets player decide what symbol or side they will play as
@@ -555,20 +566,12 @@ const Game = (function() {
         const gameBoard = GameBoard();
 
         (function handlePreGame() {
-            let currentSymbol = "X";
             const alternateSymbol = function() {
                 SQUARES_PARENT = document.querySelector("#game-board");
-                gameBoard.updateBoard(SQUARES_PARENT, alternateSymbol);
                 SQUARES = Array.from(document.querySelectorAll(".square"));
                 SQUARES.forEach((square, index) => {
                     square.addEventListener("click", () => {
-                        gameBoard.write(index, currentSymbol, SQUARES_PARENT, alternateSymbol);
-                        if (currentSymbol === "X") {
-                            currentSymbol = "O";
-                        }
-                        else if (currentSymbol === "O") {
-                            currentSymbol = "X";
-                        }
+                        gameBoard.sequenceWrite(index, SQUARES_PARENT, alternateSymbol);
                     })
                 });
             };
