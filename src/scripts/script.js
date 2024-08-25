@@ -290,7 +290,7 @@ const Game = (function() {
                     }
                 }
 
-                else if (computerGrid.length === winningLine) {
+                if (computerGrid.length === winningLine) {
 
                     // Check vertical
                     // For every column inside a grid's row
