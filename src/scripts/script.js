@@ -264,11 +264,11 @@ const Game = (function() {
                     }
 
                     // Check from bottom-left to top-right
-                    for (let count = winningLine - 1; count >= 0 ; count--) {
+                    for (let row = winningLine - 1, column = 0; row >= 0 ; row--, column++) {
                         // Check if the current symbol exists
                         let currentSymbol;
                         try {
-                            currentSymbol = playerGrid[count][count];
+                            currentSymbol = playerGrid[row][column];
 
                             // Handle empty symbol
                             if (currentSymbol === undefined) {
@@ -360,11 +360,11 @@ const Game = (function() {
                     }
 
                     // Check from bottom-left to top-right
-                    for (let count = winningLine - 1; count >= 0 ; count--) {
+                    for (let row = winningLine - 1, column = 0; row >= 0 ; row--, column++) {
                         // Check if the current symbol exists
                         let currentSymbol;
                         try {
-                            currentSymbol = computerGrid[count][count];
+                            currentSymbol = computerGrid[row][column];
 
                             // Handle empty symbol
                             if (currentSymbol === undefined) {
