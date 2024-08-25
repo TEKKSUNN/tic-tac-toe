@@ -481,8 +481,6 @@ const Game = (function() {
                 });
             });
             let symbol = symbolX > symbolO ? "O" : "X";
-            console.log(symbolX);
-            console.log(symbolO);
             if (symbolX === 5 || symbolO === 5) {
                 resetBoard();
                 symbol = "X";
