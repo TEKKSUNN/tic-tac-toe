@@ -613,6 +613,7 @@ const Game = (function() {
             // Changes dialog
             const changeDialog = function(oldDialog, newDialog) {
                 oldDialog.innerHTML = newDialog.innerHTML;
+                oldDialog.id = newDialog.id;
             }
 
             // Shows dialog
@@ -621,7 +622,7 @@ const Game = (function() {
             }
 
             // Creates a normal dialog, returns the dialog element
-            const createNewDialog = function(msg) {
+            const createNewDialog = function(msg, dialogId) {
                 const newDialog = document.createElement("dialog");
                 const newContainer = document.createElement("div");
                 newContainer.className = "container";
@@ -633,18 +634,19 @@ const Game = (function() {
                 newContainer.appendChild(newMessage);
                 newContainer.appendChild(newCloseButton);
                 newDialog.appendChild(newContainer);
+                newDialog.id = dialogId;
                 return newDialog;
             }
 
             // Change of button & dialog
             if (mode === "start") {
-                const newDialog = createNewDialog("Game has started!");
+                const newDialog = createNewDialog("Game has started!", "start-msg");
                 const handleSecondDialog = function() {
                     document.querySelector("button#close-dialog").addEventListener("click", () => {
                         handleCloseDialog();
                         button.textContent = "Cancel Game";
                         button.id = "cancel-btn";
-                        const newDialog = createNewDialog("Game has been cancelled!");
+                        const newDialog = createNewDialog("Game has been cancelled!", "cancel-msg");
                         changeDialog(dialog, newDialog);
                     });
                 }
