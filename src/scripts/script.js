@@ -430,7 +430,7 @@ const Game = (function() {
         }
 
         // Updates board on GUI version
-        const updateBoard = function(listParent, squareFunction) {
+        const updateBoard = function(listParent, squareFunction, scoreObject, playerSymbol) {
             // Recreates grid, but in a linear version
             let linearGrid = [];
             board.map((row) => {
@@ -453,13 +453,28 @@ const Game = (function() {
             });
             listParent.innerHTML = newListParent.innerHTML;
             squareFunction();
-            if (check("X", "O").getIsWinner() === true) {
+            let computerSymbol = "O";
+            let mainSymbol = playerSymbol !== null ? playerSymbol : "X";
+            if (playerSymbol !== null) {
+                computerSymbol = playerSymbol === "X" ? "O" : "X";
+            }
+            const checkWinner = check(mainSymbol, computerSymbol);
+            if (checkWinner.getIsWinner() === true) {
+                if (scoreObject !== null) {
+                    const winner = checkWinner.getWinner();
+                    if (winner === "Player") {
+                        scoreObject.addPlayerScore();
+                    }
+                    else {
+                        scoreObject.addCompScore();
+                    }
+                }
                 resetBoard();
             }
         }
 
         // Writes on board (for GUI version)
-        const sequenceWrite = function(squareNum, squareParent, squareFunction) {
+        const sequenceWrite = function(squareNum, squareParent,  squareFunction, scoreObject, playerSymbol) {
             let row = 0;
             let column = 0;
             for (let i = 0; i < squareNum; i++) {
@@ -488,13 +503,45 @@ const Game = (function() {
                 resetBoard();
                 symbol = "X";
             }
+            if (playerSymbol !== null) {
+                symbol = playerSymbol;
+            }
             if (board[row][column] === undefined) {
                 board[row][column] = symbol;
             }
-            updateBoard(squareParent, squareFunction);
+            updateBoard(squareParent, squareFunction, scoreObject, playerSymbol);
         };
 
-        return { showBoard, check, askWrite, randomWrite, updateBoard, sequenceWrite, resetBoard };
+        // Random write, but for GUI
+        const randomSequenceWrite = function(squareParent, squareFunction, scoreObject, playerSymbol) {
+            let symbolX = 0;
+            let symbolO = 0;
+            board.map((row) => {
+                row.map((symbol) => {
+                    if (symbol === "X") {
+                        symbolX++;
+                    }
+                    else if (symbol === "O") {
+                        symbolO++;
+                    }
+                });
+            });
+            let symbol = playerSymbol === "X" ? "O" : "X";
+            if (symbol === "O" && symbolX === 0) {
+                return;
+            }
+            while (true) {
+                const row = randomGridNumber();
+                const column = randomGridNumber();
+                if (board[row][column] === undefined) {
+                    board[row][column] = symbol;
+                    break;
+                }
+            }
+            updateBoard(squareParent, squareFunction, scoreObject, playerSymbol);
+        };
+
+        return { showBoard, check, askWrite, randomWrite, updateBoard, sequenceWrite, resetBoard, randomSequenceWrite };
     };
 
     // Lets player decide what symbol or side they will play as
@@ -592,11 +639,52 @@ const Game = (function() {
                 const SQUARES = Array.from(document.querySelectorAll(".square"));
                 SQUARES.forEach((square, index) => {
                     square.addEventListener("click", () => {
-                        gameBoard.sequenceWrite(index, SQUARES_PARENT, squareFunction);
+                        gameBoard.sequenceWrite(index, SQUARES_PARENT, squareFunction, null, null);
                     })
                 });
             };
-            gameBoard.updateBoard(document.querySelector("#game-board") /* Equivalent to SQUARES_PARENT */, squareFunction);
+            gameBoard.updateBoard(document.querySelector("#game-board") /* Equivalent to SQUARES_PARENT */, squareFunction, null, null);
+        };
+
+        // Updates scores
+        const updateScores = function() {
+            const newScores = document.createElement("div");
+            const playerMsg = document.createElement("p");
+            playerMsg.textContent = `Player: ${scores.getPlayerScore()}`;
+            const computerMsg = document.createElement("p");
+            computerMsg.textContent = `Computer: ${scores.getComputerScore()}`;
+            newScores.appendChild(playerMsg);
+            newScores.appendChild(computerMsg);
+            document.querySelector("div#scores").innerHTML = newScores.innerHTML;
+        }
+
+        // Updates squares based on symbol
+        const updateSymbols = function() {
+            const squareFunction = function() {
+                const SQUARES_PARENT = document.querySelector("#game-board");
+                const SQUARES = Array.from(document.querySelectorAll(".square"));
+                SQUARES.forEach((square, index) => {
+                    const playerWrite = function() {
+                        gameBoard.sequenceWrite(index, SQUARES_PARENT, squareFunction, scores, playerSymbol);
+                        updateScores();
+                    }
+                    const computerWrite = function() {
+                        gameBoard.randomSequenceWrite(SQUARES_PARENT, squareFunction, scores, playerSymbol);
+                        updateScores();
+                    }
+                    square.addEventListener("click", () => {
+                        if (playerSymbol === "X") {
+                            playerWrite();
+                            computerWrite();
+                        }
+                        else {
+                            computerWrite();
+                            playerWrite();
+                        }
+                    })
+                });
+            };
+            gameBoard.updateBoard(document.querySelector("#game-board") /* Equivalent to SQUARES_PARENT */, squareFunction, scores, playerSymbol);
         };
 
         // Handle Pre-game
@@ -713,6 +801,7 @@ const Game = (function() {
                         const newDialog = createNewDialog("Game has been cancelled!", "cancel-msg");
                         changeDialog(dialog, newDialog);
                         resetWhenClose();
+                        updateSymbols();
                     });
                 }
                 Array.from(document.querySelectorAll("dialog .sides>button")).forEach((button) => {
@@ -722,8 +811,8 @@ const Game = (function() {
                             computerSymbol = "O";
                             handleCloseDialog();
                             changeDialog(dialog, newDialog);
-                            showDialog(dialog);
                             handleSecondDialog();
+                            showDialog(dialog);
                             resetBoard();
                         });
                     }
@@ -733,12 +822,15 @@ const Game = (function() {
                             computerSymbol = "X";
                             handleCloseDialog();
                             changeDialog(dialog, newDialog);
-                            showDialog(dialog);
                             handleSecondDialog();
+                            showDialog(dialog);
                             resetBoard();
                         });
                     }
                 });
+            }
+            else if (mode === "during") {
+                updateSymbols();
             }
         };
 
