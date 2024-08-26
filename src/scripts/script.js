@@ -593,6 +593,11 @@ const Game = (function() {
             updateSquares();
         })();
 
+        const resetBoard = function() {
+            gameBoard.resetBoard();
+            updateSquares();
+        }
+
         // Changes button & dialog based on mode given
         const changeState = function(button, dialog, mode) {
             const validModes = ["start", "during", "end", "pre-game"];
@@ -675,6 +680,7 @@ const Game = (function() {
                     const newDialog = preGameTemplate();
                     changeDialog(dialog, newDialog);
                     changeState(document.querySelector("button#close-dialog"), dialog, "start");
+                    resetBoard();
                 });
             }
 
@@ -699,8 +705,7 @@ const Game = (function() {
                             changeDialog(dialog, newDialog);
                             showDialog(dialog);
                             handleSecondDialog();
-                            gameBoard.resetBoard();
-                            updateSquares();
+                            resetBoard();
                         });
                     }
                     else if (button.textContent === "O") {
@@ -711,8 +716,7 @@ const Game = (function() {
                             changeDialog(dialog, newDialog);
                             showDialog(dialog);
                             handleSecondDialog();
-                            gameBoard.resetBoard();
-                            updateSquares();
+                            resetBoard();
                         });
                     }
                 });
