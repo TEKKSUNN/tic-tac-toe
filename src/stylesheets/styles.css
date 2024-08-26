@@ -151,3 +151,20 @@ button.side:hover {
 #scores {
     grid-area: scores;
 }
+
+#scores:not(:empty) {
+    background-color: var(--secondary-color);
+    color: var(--main-color);
+    padding: 8px 16px;
+    margin: 25px;
+    font-family: 'robotobold';
+    font-weight: bold;
+    height: min-content;
+    width: max-content;
+    border-radius: 10px;
+}
+
+#scores > p {
+    padding: 0;
+    margin: 0;
+}
