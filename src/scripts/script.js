@@ -677,15 +677,22 @@ const Game = (function() {
                 const SQUARES_PARENT = document.querySelector("#game-board");
                 const SQUARES = Array.from(document.querySelectorAll(".square"));
                 SQUARES.forEach((square, index) => {
+                    const checkForWinner = function() {
+                        if (scores.findWinner() !== undefined) {
+                            changeState(document.querySelector(".game-btn"), document.querySelector("dialog.pop-up"), "end");
+                        }
+                    }
                     const playerWrite = function() {
                         gameBoard.sequenceWrite(index, SQUARES_PARENT, squareFunction, scores, playerSymbol);
                         updateScores();
                         gameBoard.updateBoard(SQUARES_PARENT, squareFunction, scores, playerSymbol);
+                        checkForWinner();
                     }
                     const computerWrite = function() {
                         gameBoard.randomSequenceWrite(SQUARES_PARENT, squareFunction, scores, playerSymbol);
                         updateScores();
                         gameBoard.updateBoard(SQUARES_PARENT, squareFunction, scores, playerSymbol);
+                        checkForWinner();
                     }
                     square.addEventListener("click", () => {
                         playerWrite();
@@ -724,7 +731,6 @@ const Game = (function() {
             }
 
             // Handles dialog
-            dialog.showModal();
             const handleCloseDialog = function() {
                 dialog.close();
             }
@@ -797,14 +803,16 @@ const Game = (function() {
                     changeButton("Start Game", "start-btn");
                     const newDialog = preGameTemplate();
                     changeDialog(dialog, newDialog);
-                    changeState(document.querySelector("button#close-dialog"), dialog, "start");
+                    changeState(document.querySelector("button#start-btn"), dialog, "start");
                     resetBoard();
                     resetScores();
+                    dialog.close();
                 });
             }
 
             // Change of button & dialog
             if (mode === "start") {
+                dialog.showModal();
                 const newDialog = createNewDialog("Game has started!", "start-msg");
                 const handleSecondDialog = function() {
                     document.querySelector("button#close-dialog").addEventListener("click", () => {
@@ -842,8 +850,26 @@ const Game = (function() {
                     }
                 });
             }
-            else if (mode === "during") {
-                updateSymbols();
+            else if (mode === "end") {
+                updateSquares();
+                changeButton("Restart Game", "restart-btn");
+                let newDialog;
+                if (scores.findWinner() === "Player") {
+                    newDialog = createNewDialog("You Won!", "winner-msg");
+                }
+                else {
+                    newDialog = createNewDialog("You Lost!", "loser-msg");
+                }
+                changeDialog(dialog, newDialog);
+                document.querySelector("button#close-dialog").addEventListener("click", handleCloseDialog);
+                showDialog(dialog);
+                const handleClickRestart = function() {
+                    const newDialog = createNewDialog("Game has restarted!", "restart-msg");
+                    changeDialog(dialog, newDialog);
+                    resetWhenClose();
+                    button.removeEventListener("click", handleClickRestart);
+                }
+                button.addEventListener("click", handleClickRestart);
             }
         };
 
