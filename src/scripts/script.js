@@ -602,6 +602,11 @@ const Game = (function() {
             updateSquares();
         }
 
+        // Resets the score to blank
+        const resetScores = function() {
+            document.querySelector("div#scores").innerHTML = "";
+        }
+
         // Changes button & dialog based on mode given
         const changeState = function(button, dialog, mode) {
             const validModes = ["start", "during", "end", "pre-game"];
@@ -685,6 +690,7 @@ const Game = (function() {
                     changeDialog(dialog, newDialog);
                     changeState(document.querySelector("button#close-dialog"), dialog, "start");
                     resetBoard();
+                    resetScores();
                 });
             }
 
