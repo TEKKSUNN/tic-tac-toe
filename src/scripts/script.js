@@ -802,6 +802,7 @@ const Game = (function() {
                         changeDialog(dialog, newDialog);
                         resetWhenClose();
                         updateSymbols();
+                        updateScores();
                     });
                 }
                 Array.from(document.querySelectorAll("dialog .sides>button")).forEach((button) => {
