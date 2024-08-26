@@ -14,6 +14,9 @@ const Game = (function() {
         // Variable for checking winner based on max score
         let scoreWinner = Score.findWinner();
 
+        // Determine score
+        const score = Score();
+
         // While no-one has reached max score
         while (scoreWinner === undefined) {
             // Determine winner of a game
@@ -59,10 +62,10 @@ const Game = (function() {
 
             (function showScoreCount(ScoreObject) {
                 console.log(`You: ${ScoreObject.getPlayerScore()}, Computer: ${ScoreObject.getComputerScore()}`);
-            })(Score);
+            })(score);
 
             // Find max score winner again & change value of scoreWinner
-            scoreWinner = Score.findWinner();
+            scoreWinner = score.findWinner();
         }
     };
 
@@ -509,7 +512,7 @@ const Game = (function() {
     };
 
     // Handles all score-related stuff
-    const Score = (function() {
+    const Score = function() {
         // Declare max score
         let maxScore = 3;
 
@@ -564,7 +567,7 @@ const Game = (function() {
         }
 
         return { addPlayerScore, addCompScore, setMaxScore, getPlayerScore, getComputerScore, getMaxScore, findWinner };
-    })();
+    };
 
     // For the GUI version
     document.addEventListener("DOMContentLoaded", () => {
