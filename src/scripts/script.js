@@ -638,16 +638,56 @@ const Game = (function() {
                 return newDialog;
             }
 
+            // Changes button text and id
+            const changeButton = function(newText, newId) {
+                button.textContent = newText;
+                button.id = newId;
+            }
+
+            // Pre-game template, returns a dialog element
+            const preGameTemplate = function() {
+                const newDialog = document.createElement("dialog");
+                newDialog.id = "start-msg";
+                const newContainer = document.createElement("div");
+                newContainer.className = "container";
+                const newMessage = document.createElement("p");
+                newMessage.textContent = "Pick a side:";
+                const newSides = document.createElement("div");
+                newSides.className = "sides";
+                const newButton1 = document.createElement("button");
+                newButton1.className = "side";
+                newButton1.textContent = "X";
+                const newButton2 = document.createElement("button");
+                newButton2.className = "side";
+                newButton2.textContent = "O";
+                newSides.appendChild(newButton1);
+                newSides.appendChild(newButton2);
+                newContainer.appendChild(newMessage);
+                newContainer.appendChild(newSides);
+                newDialog.appendChild(newContainer);
+                return newDialog;
+            };
+
+            // Resets dialog and button to pre-game stage every time the close-dialog button is clicked
+            const resetWhenClose = function() {
+                document.querySelector("button#close-dialog").addEventListener("click", () => {
+                    changeButton("Start Game", "start-btn");
+                    const newDialog = preGameTemplate();
+                    changeDialog(dialog, newDialog);
+                    changeState(document.querySelector("button#close-dialog"), dialog, "start");
+                });
+            }
+
             // Change of button & dialog
             if (mode === "start") {
                 const newDialog = createNewDialog("Game has started!", "start-msg");
                 const handleSecondDialog = function() {
                     document.querySelector("button#close-dialog").addEventListener("click", () => {
                         handleCloseDialog();
-                        button.textContent = "Cancel Game";
-                        button.id = "cancel-btn";
+                        changeButton("Cancel Game", "cancel-btn");
                         const newDialog = createNewDialog("Game has been cancelled!", "cancel-msg");
                         changeDialog(dialog, newDialog);
+                        resetWhenClose();
                     });
                 }
                 Array.from(document.querySelectorAll("dialog .sides>button")).forEach((button) => {
