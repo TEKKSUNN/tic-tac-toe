@@ -566,7 +566,12 @@ const Game = (function() {
             return;
         }
 
-        return { addPlayerScore, addCompScore, setMaxScore, getPlayerScore, getComputerScore, getMaxScore, findWinner };
+        const resetScores = function() {
+            player = 0;
+            computer = 0;
+        }
+
+        return { addPlayerScore, addCompScore, setMaxScore, getPlayerScore, getComputerScore, getMaxScore, findWinner, resetScores };
     };
 
     // For the GUI version
@@ -577,6 +582,9 @@ const Game = (function() {
         // Symbols declaration
         let playerSymbol = undefined;
         let computerSymbol = undefined;
+
+        // Determines scores for player & computer
+        const scores = Score();
 
         const updateSquares = function() {
             const squareFunction = function() {
