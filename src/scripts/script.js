@@ -653,6 +653,7 @@ const Game = (function() {
                 SQUARES.forEach((square, index) => {
                     square.addEventListener("click", () => {
                         gameBoard.sequenceWrite(index, SQUARES_PARENT, squareFunction, null, null);
+                        gameBoard.updateBoard(document.querySelector("#game-board") /* Equivalent to SQUARES_PARENT */, squareFunction, null, null);
                     })
                 });
             };
