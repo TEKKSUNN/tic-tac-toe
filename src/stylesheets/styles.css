@@ -26,7 +26,7 @@ body {
     justify-content: center;
     grid-template-areas:
         "header header header"
-        ". gameboard scores"
+        "player-names gameboard scores"
         ". buttons .";
 }
 
@@ -97,7 +97,7 @@ button:hover {
     box-shadow: var(--mild-shadow);
 }
 
-.pop-up {
+dialog {
     border-radius: 25px;
     font-size: 25px;
     border: 0;
@@ -121,7 +121,8 @@ button:hover {
 }
 
 button#close-dialog,
-button.side {
+button.side,
+button#close-msg {
     border-radius: 25px;
     font-size: 12px;
     border: 0;
@@ -131,7 +132,8 @@ button.side {
 }
 
 button#close-dialog:hover,
-button.side:hover {
+button.side:hover,
+button#close-msg:hover {
     background-color: yellow;
     color: black;
     box-shadow: var(--mild-shadow);
@@ -152,7 +154,8 @@ button.side:hover {
     grid-area: scores;
 }
 
-#scores:not(:empty) {
+#scores:not(:empty),
+#player-names:not(:empty) {
     background-color: var(--secondary-color);
     color: var(--main-color);
     padding: 8px 16px;
@@ -167,4 +170,36 @@ button.side:hover {
 #scores > p {
     padding: 0;
     margin: 0;
+}
+
+form,
+#player-winner-msg .container{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+form button {
+    background-color: var(--secondary-color);
+    color: var(--main-color);
+    border: 0;
+    height: min-content;
+    width: max-content;
+    align-self: center;
+    font-size: 15px;
+    padding: 8px 16px;
+    border-radius: 10px;
+}
+
+#player-names {
+    grid-area: player-names;
+}
+
+#player-winner-msg .container > p {
+    margin: 0;
+    padding: 0;
+}
+
+#player-winner-msg button {
+    align-self: flex-end;
 }

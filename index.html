@@ -8,9 +8,20 @@
     <title>Tic Tac Toe</title>
 </head>
 <body>
+    <dialog id="player-form">
+        <form id="player-names-form">
+            <label for="player1">Player 1 (X):</label>
+            <input type="text" name="player1" id="player1" autofocus required>
+            <label for="player2">Player 2 (O):</label>
+            <input type="text" name="player2" id="player2" required>
+            <button type="submit">Start</button>
+        </form>
+    </dialog>
+    <dialog id="player-winner-msg"></dialog>
     <header>
         <h1>Tic Tac Toe by <a href="https://github.com/TEKKSUNN/" rel="noopener noreferrer" target="_blank">TEKKSUNN</a></h1>
     </header>
+    <div id="player-names"></div>
     <div id="game-board">
         <div class="square"></div>
         <div class="square"></div>
@@ -33,7 +44,7 @@
                 </div>
             </div>
         </dialog>
-        <button id="start-btn" class="game-btn">Start Game</button>
+        <button id="start-btn" class="game-btn">Play Against Computer</button>
     </div>
 </body>
 </html>

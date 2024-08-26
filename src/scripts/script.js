@@ -652,12 +652,13 @@ const Game = (function() {
                 const SQUARES = Array.from(document.querySelectorAll(".square"));
                 SQUARES.forEach((square, index) => {
                     square.addEventListener("click", () => {
-                        gameBoard.sequenceWrite(index, SQUARES_PARENT, squareFunction, null, null);
-                        gameBoard.updateBoard(document.querySelector("#game-board") /* Equivalent to SQUARES_PARENT */, squareFunction, null, null);
+                        gameBoard.sequenceWrite(index, SQUARES_PARENT, squareFunction, playerScores, null);
+                        gameBoard.updateBoard(SQUARES_PARENT, squareFunction, playerScores, "X");
+                        updatePlayerScores();
                     })
                 });
             };
-            gameBoard.updateBoard(document.querySelector("#game-board") /* Equivalent to SQUARES_PARENT */, squareFunction, null, null);
+            gameBoard.updateBoard(document.querySelector("#game-board") /* Equivalent to SQUARES_PARENT */, squareFunction, playerScores, "X");
         };
 
         // Updates scores
@@ -711,11 +712,6 @@ const Game = (function() {
             gameBoard.updateBoard(document.querySelector("#game-board") /* Equivalent to SQUARES_PARENT */, squareFunction, scores, playerSymbol);
         };
 
-        // Handle Pre-game
-        (function handlePreGame() {
-            updateSquares();
-        })();
-
         // Reset board shorter function
         const resetBoard = function() {
             gameBoard.resetBoard();
@@ -726,6 +722,23 @@ const Game = (function() {
         const resetScores = function() {
             document.querySelector("div#scores").innerHTML = "";
             scores.resetScores();
+        }
+
+        // Creates a normal dialog, returns the dialog element
+        const createNewDialog = function(msg, dialogId) {
+            const newDialog = document.createElement("dialog");
+            const newContainer = document.createElement("div");
+            newContainer.className = "container";
+            const newMessage = document.createElement("p");
+            newMessage.textContent = msg;
+            const newCloseButton = document.createElement("button");
+            newCloseButton.id = "close-dialog";
+            newCloseButton.textContent = "OK";
+            newContainer.appendChild(newMessage);
+            newContainer.appendChild(newCloseButton);
+            newDialog.appendChild(newContainer);
+            newDialog.id = dialogId;
+            return newDialog;
         }
 
         // Changes button & dialog based on mode given
@@ -753,23 +766,6 @@ const Game = (function() {
             // Shows dialog
             const showDialog = function(dialog) {
                 dialog.showModal();
-            }
-
-            // Creates a normal dialog, returns the dialog element
-            const createNewDialog = function(msg, dialogId) {
-                const newDialog = document.createElement("dialog");
-                const newContainer = document.createElement("div");
-                newContainer.className = "container";
-                const newMessage = document.createElement("p");
-                newMessage.textContent = msg;
-                const newCloseButton = document.createElement("button");
-                newCloseButton.id = "close-dialog";
-                newCloseButton.textContent = "OK";
-                newContainer.appendChild(newMessage);
-                newContainer.appendChild(newCloseButton);
-                newDialog.appendChild(newContainer);
-                newDialog.id = dialogId;
-                return newDialog;
             }
 
             // Changes button text and id
@@ -805,19 +801,22 @@ const Game = (function() {
             // Resets dialog and button to pre-game stage every time the close-dialog button is clicked
             const resetWhenClose = function() {
                 document.querySelector("button#close-dialog").addEventListener("click", () => {
-                    changeButton("Start Game", "start-btn");
+                    changeButton("Play Against Computer", "start-btn");
                     const newDialog = preGameTemplate();
                     changeDialog(dialog, newDialog);
                     changeState(document.querySelector("button#start-btn"), dialog, "start");
                     resetBoard();
                     resetScores();
                     dialog.close();
+                    updatePlayerNames();
+                    updatePlayerScores();
                 });
             }
 
             // Change of button & dialog
             if (mode === "start") {
                 dialog.showModal();
+                document.querySelector("#player-names").innerHTML = "";
                 const newDialog = createNewDialog("Game has started!", "start-msg");
                 const handleSecondDialog = function() {
                     document.querySelector("button#close-dialog").addEventListener("click", () => {
@@ -877,6 +876,80 @@ const Game = (function() {
                 button.addEventListener("click", handleClickRestart);
             }
         };
+
+        const updatePlayerNames = function() {
+            const namesTab = document.querySelector("div#player-names");
+            const player1Name = document.createElement("p");
+            player1Name.textContent = `Player 1 (X): ${player1}`;
+            const player2Name = document.createElement("p");
+            player2Name.textContent = `Player 2 (O): ${player2}`;
+            namesTab.appendChild(player1Name);
+            namesTab.appendChild(player2Name);
+        }
+
+        const createNewDialog2 = function(msg, dialogId) {
+            const newDialog = document.createElement("dialog");
+            const newContainer = document.createElement("div");
+            newContainer.className = "container";
+            const newMessage = document.createElement("p");
+            newMessage.textContent = msg;
+            const newCloseButton = document.createElement("button");
+            newCloseButton.id = "close-msg";
+            newCloseButton.textContent = "OK";
+            newContainer.appendChild(newMessage);
+            newContainer.appendChild(newCloseButton);
+            newDialog.appendChild(newContainer);
+            newDialog.id = dialogId;
+            return newDialog;
+        }
+    
+        // Integrate players manual playing
+        let player1;
+        let player2;
+        let playerScores = Score();
+        const updatePlayerScores = function() {
+            const scoresTab = document.querySelector("#scores")
+            scoresTab.innerHTML = "";
+            const player1Score = document.createElement("p");
+            player1Score.textContent = `Player 1 (${player1}, \"X\") Score: ${playerScores.getPlayerScore()}`;
+            const player2Score = document.createElement("p");
+            player2Score.textContent = `Player 2 (${player2}, \"O\") Score: ${playerScores.getComputerScore()}`;
+            scoresTab.appendChild(player1Score);
+            scoresTab.appendChild(player2Score);
+            const dialog = document.querySelector("dialog#player-winner-msg");
+            const closeDialog = function() {
+                dialog.close();
+                playerScores.resetScores();
+                updatePlayerScores();
+            }
+            if (playerScores.findWinner() === "Player") {
+                const newDialog = createNewDialog2(`Player 1 (${player1}) Won!`, "player-winner-msg");
+                dialog.innerHTML = newDialog.innerHTML;
+                document.querySelector("button#close-msg").addEventListener("click", closeDialog);
+                dialog.showModal();
+            }
+            else if (playerScores.findWinner() === "Computer") {
+                const newDialog = createNewDialog2(`Player 2 (${player2}) Won!`, "player-winner-msg");
+                dialog.innerHTML = newDialog.innerHTML;
+                document.querySelector("button#close-msg").addEventListener("click", closeDialog);
+                dialog.showModal();
+            }
+        }
+        const secondDialog = document.querySelector("dialog#player-form");
+        secondDialog.showModal();
+        document.querySelector("form#player-names-form").addEventListener("submit", (event) => {
+            event.preventDefault();
+            player1 = document.querySelector("input#player1").value;
+            player2 = document.querySelector("input#player2").value;
+            updatePlayerNames();
+            updatePlayerScores();
+            secondDialog.close();
+        });
+
+        // Handle Pre-game
+        (function handlePreGame() {
+            updateSquares();
+        })();
 
         // Handle start of game
         (function handleStartGame() {
