@@ -593,6 +593,7 @@ const Game = (function() {
             updateSquares();
         })();
 
+        // Reset board shorter function
         const resetBoard = function() {
             gameBoard.resetBoard();
             updateSquares();
