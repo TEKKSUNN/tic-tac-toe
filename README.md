@@ -7,3 +7,8 @@ For The Odin Project's "Project: Tic Tac Toe" from "Javascript"
 
 ## Completion of Project
 Finally... I finished this project. It took me almost a week to finish this bullshit. I'm finally free at last. I can finally move on to the next lessons... I'm not gonna touch this repo again, because the code is too messy to understand. I can go and make new tic tac toe again, but I will never touch the javascript of this code, ever.
+
+## My Project looks different
+That's because it is. I forgot to read the rest of the instructions. Oh well...
+At the very least I integrated the ability to play tic tac toe manually "pre-game".
+And as an excuse to not integrating the changing of names, I gave the ability to play against the computer.
