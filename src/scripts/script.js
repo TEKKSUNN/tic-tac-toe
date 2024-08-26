@@ -473,6 +473,19 @@ const Game = (function() {
             }
         }
 
+        // Returns true if board is empty, else false
+        const isEmpty = function() {
+            let res = true;
+            board.map((row) => {
+                row.map((symbol) => {
+                    if (symbol !== undefined) {
+                        res = false;
+                    }
+                })
+            })
+            return res;
+        }
+
         // Writes on board (for GUI version)
         const sequenceWrite = function(squareNum, squareParent,  squareFunction, scoreObject, playerSymbol) {
             let row = 0;
@@ -541,7 +554,7 @@ const Game = (function() {
             updateBoard(squareParent, squareFunction, scoreObject, playerSymbol);
         };
 
-        return { showBoard, check, askWrite, randomWrite, updateBoard, sequenceWrite, resetBoard, randomSequenceWrite };
+        return { showBoard, check, askWrite, randomWrite, updateBoard, sequenceWrite, resetBoard, randomSequenceWrite, isEmpty };
     };
 
     // Lets player decide what symbol or side they will play as
@@ -667,21 +680,20 @@ const Game = (function() {
                     const playerWrite = function() {
                         gameBoard.sequenceWrite(index, SQUARES_PARENT, squareFunction, scores, playerSymbol);
                         updateScores();
+                        gameBoard.updateBoard(SQUARES_PARENT, squareFunction, scores, playerSymbol);
                     }
                     const computerWrite = function() {
                         gameBoard.randomSequenceWrite(SQUARES_PARENT, squareFunction, scores, playerSymbol);
                         updateScores();
+                        gameBoard.updateBoard(SQUARES_PARENT, squareFunction, scores, playerSymbol);
                     }
                     square.addEventListener("click", () => {
-                        if (playerSymbol === "X") {
-                            playerWrite();
-                            computerWrite();
-                        }
-                        else {
-                            computerWrite();
-                            playerWrite();
-                        }
+                        playerWrite();
+                        computerWrite();
                     })
+                    if (computerSymbol === "X" && gameBoard.isEmpty() === true) {
+                        computerWrite();
+                    }
                 });
             };
             gameBoard.updateBoard(document.querySelector("#game-board") /* Equivalent to SQUARES_PARENT */, squareFunction, scores, playerSymbol);
