@@ -698,10 +698,14 @@ const Game = (function() {
                         playerWrite();
                         computerWrite();
                     })
-                    if (computerSymbol === "X" && gameBoard.isEmpty() === true) {
-                        computerWrite();
-                    }
                 });
+                if (computerSymbol === "X" && gameBoard.isEmpty() === true) {
+                    gameBoard.randomSequenceWrite(SQUARES_PARENT, squareFunction, scores, playerSymbol);
+                    updateScores();
+                    gameBoard.updateBoard(SQUARES_PARENT, squareFunction, scores, playerSymbol);
+                    // The error from this somehow stops the double X bug lol
+                    checkForWinner();
+                }
             };
             gameBoard.updateBoard(document.querySelector("#game-board") /* Equivalent to SQUARES_PARENT */, squareFunction, scores, playerSymbol);
         };
