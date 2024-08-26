@@ -21,13 +21,18 @@ body {
     background-repeat: round no-repeat;
     display: grid;
     grid-auto-flow: row;
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(3, 1fr);
     grid-template-rows: min-content 2fr 1fr;
     justify-content: center;
+    grid-template-areas:
+        "header header header"
+        ". gameboard scores"
+        ". buttons .";
 }
 
 header {
     padding-left: 4px;
+    grid-area: header;
 }
 
 header * {
@@ -48,6 +53,7 @@ header a:hover {
     grid-template: repeat(3, minmax(50px, 1fr)) / repeat(3, minmax(50px, 10vw));
     justify-content: center;
     align-content: center;
+    grid-area: gameboard;
 }
 
 div.square {
@@ -71,6 +77,7 @@ div.square:hover {
     display: flex;
     justify-content: center;
     align-items: center;
+    grid-area: buttons;
 }
 
 button.game-btn {
@@ -139,4 +146,8 @@ button.side:hover {
     font-size: 25px;
     border-radius: 10px;
     padding: 0 16px;
+}
+
+#scores {
+    grid-area: scores;
 }
