@@ -12,3 +12,6 @@ Finally... I finished this project. It took me almost a week to finish this bull
 That's because it is. I forgot to read the rest of the instructions. Oh well...
 At the very least I integrated the ability to play tic tac toe manually "pre-game".
 And as an excuse to not integrating the changing of names, I gave the ability to play against the computer.
+
+## Fine
+Fine, I finally added player vs player, it took me less than 2 or 2 hours.
