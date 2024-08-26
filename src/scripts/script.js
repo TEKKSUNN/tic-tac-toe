@@ -613,6 +613,7 @@ const Game = (function() {
         // Resets the score to blank
         const resetScores = function() {
             document.querySelector("div#scores").innerHTML = "";
+            scores.resetScores();
         }
 
         // Changes button & dialog based on mode given
