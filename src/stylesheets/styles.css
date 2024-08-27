@@ -207,3 +207,17 @@ form button {
 label {
     font-size: 15px;
 }
+
+input[type="text"] {
+    border: 1px solid var(--secondary-color);
+    background-color: var(--main-color);
+    color: var(--secondary-color);
+    padding: 4px 8px;
+}
+
+input[type="text"]:focus {
+    box-shadow: var(--mild-shadow);
+    background-color: var(--secondary-color);
+    color: var(--main-color);
+    outline: 1px solid var(--main-color);
+}
