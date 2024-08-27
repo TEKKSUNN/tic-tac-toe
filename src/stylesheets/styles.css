@@ -203,3 +203,7 @@ form button {
 #player-winner-msg button {
     align-self: flex-end;
 }
+
+label {
+    font-size: 15px;
+}
