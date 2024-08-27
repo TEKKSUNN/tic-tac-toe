@@ -110,7 +110,8 @@ dialog {
     flex-direction: column;
 }
 
-.pop-up::backdrop {
+.pop-up::backdrop,
+dialog::backdrop {
     background-image: linear-gradient(var(--main-color), var(--secondary-color));
     opacity: 0.5;
 }
