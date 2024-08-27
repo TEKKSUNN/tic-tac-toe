@@ -195,7 +195,8 @@ form button {
     grid-area: player-names;
 }
 
-#player-winner-msg .container > p {
+#player-winner-msg .container > p,
+#player-names p {
     margin: 0;
     padding: 0;
 }
